@@ -7,7 +7,7 @@ app.component("NavBar", Navbar);
 </script>
 
 <template>
-  <Navbar heading="Car Gallery" />
+  <Navbar heading="Car Showroom" />
   <GalleryCard />
 </template>
 

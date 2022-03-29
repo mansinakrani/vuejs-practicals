@@ -7,7 +7,7 @@
         <div class="carDetails">{{ carItem.carDetails }}</div>
         <button type="button" class="btn btn-info" @click="clickInfo(carItem.carPrice)" v-if="carItem.carPrice">Info
         </button>
-        <button v-else :disabled="!isPrice" >Coming soon...
+        <button type="button" class="btn btn-secondary" v-else :disabled="!isPrice" >Available soon
         </button>
       </div>
   </div>
@@ -59,7 +59,7 @@ export default {
   .column {
     width: 100%;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center
@@ -88,6 +88,7 @@ img {
 
 .carDetails {
   font-size: medium;
+  height: 160px;
 }
 
 button {
@@ -146,6 +147,7 @@ button {
 
   .carDetails {
     font-size: small;
+    height: 100px;
   }
 }
 </style>

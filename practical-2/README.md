@@ -45,11 +45,9 @@ Update project car showroom.
 # Website URLs
 Deployed on netlify platform :-
 
-[netlify]()
+[netlify](https://sweet-profiterole-5a3c04.netlify.app/)
 
 ## Repo Link
-[Practical - 2](https://github.com/mansinakrani/vuejs-practicals.git)
+[Practical - 02](https://github.com/mansinakrani/vuejs-practicals.git)
 
-## PR Link
-[Pull-Request]() 
 

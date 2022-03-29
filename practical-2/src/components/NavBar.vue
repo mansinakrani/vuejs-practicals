@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
 .heading {
-    font-size: 32px;
+    font-size: 30px;
     width: 100%;
     color: white;
     background-color: rgb(72, 160, 215);
