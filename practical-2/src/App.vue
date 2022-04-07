@@ -1,23 +1,34 @@
-<script setup>
-// global component navbar
-import { createApp } from "vue";
-import Navbar from "./components/NavBar.vue";
-const app = createApp({});
-app.component("NavBar", Navbar);
-</script>
-
 <template>
-  <Navbar heading="Car Showroom" />
-  <GalleryCard />
+  <NavBar heading="Car Showroom" />
+  <div class="row">
+    <div class="column">
+        <div v-for="carItem in carData" :key="carItem.id" class="dataContainer">
+          <GalleryCard 
+            :carImage="carItem.carImage"
+            :carName="carItem.carName"
+            :carDetails="carItem.carDetails"
+            :carPrice="carItem.carPrice" />
+        </div>
+    </div>
+  </div>
+  
 </template>
 
 <script>
-import GalleryCard from './components/GalleryCard.vue'
+import GalleryCard from './components/GalleryCard.vue';
+import jsonData from "./components/jsonData.json";
+import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
   components: {
-    GalleryCard
+    GalleryCard,
+    NavBar
+  },
+  data() {
+    return {
+      carData: jsonData,
+    };
   }
 }
 </script>
@@ -30,4 +41,31 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+.column {
+  display: flex;
+  flex-direction: row;
+  float: left;
+  justify-content: center
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+  }
+}
+
+.dataContainer{
+ background-color: rgb(187, 234, 235);
+ border-radius: 15px;
+ margin: 25px;
+ width: 400px;
+ box-shadow: rgba(112, 112, 220, 0.1) 0px 8px 24px, rgba(223, 28, 28, 0.1) 0px 16px 56px, #f265651a 0px 24px 80px;
+}
+
 </style>
