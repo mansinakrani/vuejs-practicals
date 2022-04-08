@@ -52,7 +52,7 @@ Update project car showroom.
 # Website URLs
 Deployed on netlify platform :-
 
-[netlify]()
+[netlify](https://project-car-showroom-pr-3.netlify.app/)
 
 ## Repo Link
 [Practical - 03](https://github.com/mansinakrani/vuejs-practicals.git)
