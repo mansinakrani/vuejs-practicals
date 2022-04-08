@@ -1,6 +1,6 @@
-# pr-2
+# pr-3
 
-# vuejs-practical-01
+# vuejs-practical-03
 
 ## Project setup
 ```
@@ -25,29 +25,36 @@ npm run lint
 ## Description
 Update project car showroom.
 
-· gallery-card must be a local component.
+· In home view on the right add a new button “Add car”.
 
-· update a component gallery-card. with 4 props car name, car image URL, car details, and price.
+· Create two components car-form.
 
-· In card show price if given else change button text with “available soon” and disable it.
+· On click “add car” open one dialogbox with car-form a component in it.
 
-· Show 3 cars on the home page. Use component to show all 3 cars card and card must be inline. One of those does not have a price.
+· For car -form add inputs as follow.
 
-· create one method to show an alert in home view with the argument as price.
+1) Name filed value must be string.
 
-· On click “info” button emits home view method.
+2) Details must be 30-120 characters long and string.
 
-· Create a one global component navbar and use it in app.vue.
+3) Image must be URL.
 
-· In the navbar component show the name of the project.
+4) Price must int.
+
+5) Last show button submit. On click first check validations if a form is valid then show all inputs value in alert with the heading “created data”.
+
+· in the gallery-card component add buttons edit and delete.
+
+· On click delete button show alert with the text “deleted” with the name of that card car. (Not delete really)
+ On click edit button open dialog with car-form with heading edit and fill all data of respective car of which edit button clicked in that form.  on submit button of dialog check validations if the form is valid then show all inputs value in alert with heading “edited data”.
 
 ## Demo 
 # Website URLs
 Deployed on netlify platform :-
 
-[netlify](https://sweet-profiterole-5a3c04.netlify.app/)
+[netlify]()
 
 ## Repo Link
-[Practical - 02](https://github.com/mansinakrani/vuejs-practicals.git)
+[Practical - 03](https://github.com/mansinakrani/vuejs-practicals.git)
 
 
