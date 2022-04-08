@@ -7,11 +7,12 @@
             :carImage="carItem.carImage"
             :carName="carItem.carName"
             :carDetails="carItem.carDetails"
-            :carPrice="carItem.carPrice" />
+            :carPrice="carItem.carPrice"
+            :id="carItem.id"        
+            />
         </div>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -26,7 +27,14 @@ export default {
   data() {
     return {
       carData: jsonData,
+      showModel: false,
+      formHeading: "",
     };
+  },
+  methods: {
+    handleFormHeading(heading) {
+      this.formHeading = heading;
+    }, 
   }
 }
 </script>
