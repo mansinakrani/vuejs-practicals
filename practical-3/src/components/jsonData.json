@@ -1,23 +1,22 @@
-[
-    {
-        "id": 1,
+[{
+        "id": "1",
         "carName": "Mercedes-Benz GLC Coupe - 1",
         "carImage": "https://images.unsplash.com/photo-1590362891991-f776e747a588?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGNhciUyMGRlYWxlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
         "carDetails": "Mercedes-Benz GLC Coupe is offered in 2 variants - the base model of GLC Coupe is 300 4MATIC is the petrol variant in the GLC Coupe lineup and is priced at ₹ 70.95 Lakh and the top variant Mercedes-Benz GLC Coupe 300d 4MATIC which comes at a price tag of Rs. 72.00 Lakh",
-        "carPrice": "Car Price is ₹ 70-73 Lakh !"
+        "carPrice": 7000000
     },
     {
-        "id": 2,
+        "id": "2",
         "carName": "Volkswagen Beetle",
         "carImage": "https://images.unsplash.com/photo-1511125357779-27038c647d9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVldGxlJTIwY2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
         "carDetails": "Beetle is available in 1 variants. All the variants are Automatic.",
-        "carPrice": "Car Price is ₹ 26.95 Lakh !"
+        "carPrice": 2700000
     },
     {
-        "id": 3,
+        "id": "3",
         "carName": "Chevrolet Camaro",
         "carImage": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fyc3xlbnwwfHwwfHw%3D&w=1000&q=80",
         "carDetails": "Chevrolet Camaro - a sports car that pushes the limits of both on-road performance and style with a refined, driver-centric interior."
-        
+
     }
 ]

@@ -1,40 +1,74 @@
 <template>
-<div class="row">
-  <div class="column">
-      <div v-for="carItem in carData" :key="carItem.id" class="dataContainer">
-        <div class="carName">{{ carItem.carName }}</div>
-        <div v-if="carItem.carImage"><img :src="carItem.carImage" alt=" " /></div>
-        <div class="carDetails">{{ carItem.carDetails }}</div>
-        <button type="button" class="btn btn-info" @click="clickInfo(carItem.carPrice)" v-if="carItem.carPrice">Info
-        </button>
-        <button type="button" class="btn btn-secondary" v-else :disabled="!isPrice" >Available soon
-        </button>
-      </div>
+  <div>
+    <div>
+      <div class="edit-delete-btn">
+          <p type="button" class="btn-edit" @click="showModal" ><i class="fa fa-pencil" @click="editCarDetails(id)" ></i></p>
+          <p type="button" class="btn-delete" @click="dataDelete(carName)">x</p>  
+        </div>
+      <div class="carName">{{ carName }}</div>
+      <div v-if="carImage"><img :src="carImage" alt="car-image" /></div>
+      <div class="carDetails">{{ carDetails }}</div>
+      <button :disabled="isPrice" class="btn btn-info text-black" @click="clickInfo">
+        <span v-if="carPrice">Info</span>
+        <span v-else>Available soon...</span>
+      </button>
+    </div>
+      <div class="edit-form">
+        <EditModalView v-show="isModalVisible"
+          @close="closeModal" 
+          @checkEditCarModalFlag="getshowModal"
+          :initialValues="initialValues"
+        />      
   </div>
-</div>
+  </div>
 </template>
 
 <script>
+import EditModalView from "./EditModalView.vue";
 import jsonData from "./jsonData.json";
-
 export default {
   name: 'GalleryCard',
+  components: {
+    EditModalView
+  },
   props: {
-      carName: String,
-      carImage: URL,
-      carDetails: String,
-      carPrice: String
+    id: String,
+    carName: String,
+    carImage: String,
+    carDetails: String,
+    carPrice: Number,
   },
   data() {
     return {
       carData: jsonData,
+      isModalVisible: false,
     };
   },
   methods: {
-    clickInfo(carPrice) {
-      alert(carPrice);
+    dataDelete(carName) {
+      alert(`Deleted ${carName} !!`);
     },
+    clickInfo() {
+      alert(`car price is ₹ ${this.carPrice}`);
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {     
+      this.isModalVisible = false;
+    },
+   
+    editCarDetails(id) {     
+      const carItem = this.carData.find((carItem) => carItem.id === id);
+      this.initialValues = carItem;
+      this.isModalVisible = true;
+    },
+
+    getshowModal(values) {
+      this.isModalVisible=values;
+    }
   },
+     
   computed: {
     isPrice() {
       return (this.carPrice === undefined)
@@ -43,35 +77,37 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
-.column {
+.edit-delete-btn {
   display: flex;
-  flex-direction: row;
-  float: left;
-  justify-content: center
+  justify-content: flex-end;
+  margin-bottom: -40px;
 }
 
-
-/* Responsive columns */
-@media screen and (max-width: 650px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center
-  }
+.btn-edit {
+  float: right;
+  border: none;
+  font-size: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #0b577a;
+  background: transparent;
 }
 
-.dataContainer{
- background-color: rgb(187, 234, 235);
- border-radius: 15px;
- margin: 25px;
- width: 400px;
- box-shadow: rgba(112, 112, 220, 0.1) 0px 8px 24px, rgba(223, 28, 28, 0.1) 0px 16px 56px, #f265651a 0px 24px 80px;
+.btn-delete {
+  float: right;
+  border: none;
+  font-size: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #ef3925;
+  background: transparent;
+}
+
+.btn-delete:hover {
+  color: #dd7468;
 }
 
 .carName {
@@ -91,38 +127,23 @@ img {
   height: 160px;
 }
 
-button {
-  align-items: center;
-  border: 0;
-  border-radius: 8px;
-  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-  box-sizing: border-box;
-  color: #1a1818;
-  font-family: Phantomsans, sans-serif;
-  font-size: 20px;
-  justify-content: center;
-  line-height: 1em;
-  max-width: 100%;
-  min-width: 140px;
-  padding: 15px 20px;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  cursor: pointer;
-  margin-block-end: 8px;
-}
-
-.button:active,
-.button:hover {
+.btn:active,
+.btn:hover {
   outline: 0;
-}
+  background-color: #f9fafb!important;
+  border-color: #87cbd9!important;
+} 
 
+.btn-info.disabled, .btn-info:disabled {
+  color: rgb(81, 77, 77)!important;
+  background-color: #f9fafb!important;
+  border-color: rgb(81, 77, 77)!important;
+}
+ 
 @media (min-width: 768px) {
-  .button {
-    font-size: 24px;
-    min-width: 196px;
+  .btn {
+    font-size: 14px;
+    min-width: 106px;
   }
 }
 
