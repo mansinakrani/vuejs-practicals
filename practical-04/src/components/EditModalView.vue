@@ -31,47 +31,49 @@
              <div class="form">
             
               <Form @submit="handleSubmit" :validation-schema="schema" :initial-values="initialValues">
+                <Field type="hidden" name="id" class="form-control" />
+
                 <div>
-                  <label for="carName">Car Name : </label>    
-                  <Field id="carName" name="carName" type="text" class="form-control" placeholder="Enter car name" />
-                  <ErrorMessage name="carName" class="text-danger" />
+                  <label for="name">Car Name : </label>    
+                  <Field id="name" name="name" type="text" class="form-control" placeholder="Enter car name" />
+                  <ErrorMessage name="name" class="text-danger" />
                 </div>
                   
                 <div>
-                  <label for="carDetails">Car Details : </label>                 
+                  <label for="details">Car Details : </label>                 
                   <Field
-                    id="carDetails"
-                    name="carDetails"
+                    id="details"
+                    name="details"
                     type="text"
                     class="form-control"
                     placeholder="Enter car details"
                   />
-                  <ErrorMessage name="carDetails" class="text-danger" />
+                  <ErrorMessage name="details" class="text-danger" />
                  
                 </div>
       
                 <div>
-                  <label for="carImage">Car Image : </label>                
+                  <label for="image">Car Image : </label>                
                   <Field
-                    id="carImage"
-                    name="carImage"
+                    id="image"
+                    name="image"
                     type="text"
                     class="form-control"
                     placeholder="Enter car image URL"
                   />
-                  <ErrorMessage name="carImage" class="text-danger" />
+                  <ErrorMessage name="image" class="text-danger" />
                 </div>               
 
                 <div>
-                  <label for="carPrice">Car Price : </label>
+                  <label for="price">Car Price : </label>
                   <Field
-                    id="carPrice"
-                    name="carPrice"
+                    id="price"
+                    name="price"
                     type="number"
                     class="form-control"
                     placeholder="Enter car price"
                   />
-                  <ErrorMessage name="carPrice" class="text-danger" />
+                  <ErrorMessage name="price" class="text-danger" />
                 </div>
 
                 <br />
@@ -91,6 +93,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import axios from 'axios';
   export default {
     name: 'EditModalView',
     components: {
@@ -101,17 +104,17 @@ import * as yup from "yup";
     data() {
       const schema = yup.object({
       id: yup.string(),
-      carName: yup.string().required("Car Name is Required!*"),
-      carDetails: yup
+      name: yup.string().required("Car Name is Required!*"),
+      details: yup
         .string()
         .required("Car Details is Required!*")
         .min(30)
         .max(120),
-      carImage: yup
+      image: yup
         .string()
         .required("Car Image is Required!*")
         .url("Car Image must be in URL Format!**"),
-      carPrice: yup
+      price: yup
         .number()
         .required("Car Price is Required!*"),
     });
@@ -128,8 +131,19 @@ import * as yup from "yup";
     close() {          
         this.$emit('close');
     },
-    handleSubmit(carItem) {
-      alert("Edited data : \n" + JSON.stringify(carItem, 2, null));
+    handleSubmit(carItem) {      
+      alert("Edited data : \n" + JSON.stringify(carItem, 2, null)); 
+      axios.put(`https://testapi.io/api/dartya/resource/cardata/${carItem.id}`,carItem)
+      .then((response) => {
+          if (response.status === 200) {
+            this.$parent.fetchData();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(`cannot update at this moment`);
+        });
+      
       this.$emit('checkEditCarModalFlag',false);
     },
   },

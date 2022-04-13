@@ -1,79 +1,48 @@
 <template>
   <div>
-    <div>
-      <div class="edit-delete-btn">
-          <p type="button" class="btn-edit" @click="showModal" ><i class="fa fa-pencil" @click="editCarDetails(id)" ></i></p>
-          <p type="button" class="btn-delete" @click="dataDelete(carName)">x</p>  
-        </div>
-      <div class="carName">{{ carName }}</div>
-      <div v-if="carImage"><img :src="carImage" alt="car-image" /></div>
-      <div class="carDetails">{{ carDetails }}</div>
-      <button :disabled="isPrice" class="btn btn-info text-black" @click="clickInfo">
-        <span v-if="carPrice">Info</span>
-        <span v-else>Available soon...</span>
-      </button>
+    <div class="edit-delete-btn">
+      <p type="button" class="btn-edit" @click="showModal" ><i class="fa fa-pencil" @click="editCarDetails(id)" ></i></p>
+      <p type="button" class="btn-delete" @click="dataDelete(id)">x</p>  
     </div>
-      <div class="edit-form">
-        <EditModalView v-show="isModalVisible"
-          @close="closeModal" 
-          @checkEditCarModalFlag="getshowModal"
-          :initialValues="initialValues"
-        />      
-  </div>
+    <div class="carName">{{ carName }}</div>
+    <div v-if="carImage"><img :src="carImage" alt="car-image" /></div>
+    <div class="carDetails">{{ carDetails }}</div>
+    <button :disabled="isPrice" class="btn btn-info text-black" @click="clickInfo">
+      <span v-if="carPrice">Info</span>
+      <span v-else>Available soon...</span>
+    </button>
   </div>
 </template>
 
 <script>
-import EditModalView from "./EditModalView.vue";
-import jsonData from "./jsonData.json";
 export default {
   name: 'GalleryCard',
-  components: {
-    EditModalView
-  },
   props: {
     id: String,
     carName: String,
     carImage: String,
     carDetails: String,
     carPrice: Number,
+    editCarDetails:Function,
   },
   data() {
     return {
-      carData: jsonData,
-      isModalVisible: false,
+      carData: [],
     };
   },
-  methods: {
-    dataDelete(carName) {
-      alert(`Deleted ${carName} !!`);
-    },
-    clickInfo() {
-      alert(`car price is ₹ ${this.carPrice}`);
-    },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {     
-      this.isModalVisible = false;
-    },
-   
-    editCarDetails(id) {     
-      const carItem = this.carData.find((carItem) => carItem.id === id);
-      this.initialValues = carItem;
-      this.isModalVisible = true;
-    },
-
-    getshowModal(values) {
-      this.isModalVisible=values;
-    }
-  },
-     
   computed: {
     isPrice() {
       return (this.carPrice === undefined)
     },
   },
+  methods: {
+    dataDelete(id) {
+      this.$parent.deleteData(id);
+    },
+    clickInfo() {
+      alert(`car price is ₹ ${this.carPrice}`);
+    },
+  },     
 };
 </script>
 
