@@ -14,7 +14,7 @@
 
 <script>
 import ModalView from "./ModalView.vue";
-import jsonData from "./jsonData.json";
+
 export default {
   name: "NavBar",
   components: {
@@ -33,7 +33,7 @@ export default {
         carImage: "",
         carPrice: undefined,
       },
-      carData: jsonData,
+      carData: [],
     };
   },
 
@@ -44,39 +44,21 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    addCar(carItem) {
-      if (carItem.id !== " ") {
-        this.carData = this.carData.map((c) => {
-          if (c.id === carItem.id) {
-            c.carName = carItem.carName;
-            c.carPrice = carItem.carPrice;
-            c.carDetails = carItem.carDetails;
-            c.carImage = carItem.carImage;
-          }
-          return c;
-          });
-        alert("Created data :\n" + JSON.stringify(carItem, 2, null));
-        this.resetInitialValues();     
-      } else {
-      carItem.id = this.uuid();
-      this.carData.push(carItem);
-      alert("Edited data" + JSON.stringify(carItem, 2, null));
-      }
+   addCar(carItem) {
+      carItem.id = new Date().getTime().toString(36);
+      this.$parent.sendData(carItem);
     },
     getAddshowModal(values) {
       this.isModalVisible=values;
-    },
-    uuid() {
-      return new Date().getUTCMilliseconds();
     },
   
     resetInitialValues() {
       this.initialValues = {
         id: "",
-        carName: "",
-        carDetails: "",
-        carImage: "",
-        carPrice: undefined,
+        name: "",
+        details: "",
+        image: "",
+        price: undefined,
       };
     },
   },

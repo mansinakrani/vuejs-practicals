@@ -1,7 +1,6 @@
 <template>
   <NavBar heading="Car Showroom" />
-  <HomeView />.
-  
+  <HomeView />
 </template>
 
 <script>
