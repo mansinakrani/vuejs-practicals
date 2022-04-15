@@ -1,22 +1,14 @@
 <template>
-  <NavBar heading="Car Showroom" />
   <HomeView />
 </template>
 
 <script>
 import HomeView from './components/HomeView.vue';
-import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
   components: {
-    HomeView,
-    NavBar
-  },
-  data() {
-    return {
-      
-    };
+    HomeView
   },
 }
 </script>
