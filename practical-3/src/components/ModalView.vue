@@ -1,39 +1,17 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-backdrop">
-      <div class="modal"
-        role="dialog"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
-      >
-        <header
-          class="modal-header"
-          id="modalTitle"
-        >
-          <slot name="header">
-            Car Details
-          </slot>
-          <button
-            type="button"
-            class="btn-close"
-            @click="close"
-            aria-label="Close modal"
-          >
-            x
-          </button>
+    <div v-show="showModel" class="modal-backdrop">
+      <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+        <header class="modal-header" id="modalTitle">
+          <slot name="header">{{ formHeading }}</slot>
+          <button type="button" class="btn-close" @click="handleModel(false)" aria-label="Close modal">x</button>
         </header>
 
-        <section
-          class="modal-body"
-        >
+        <section class="modal-body">
           <slot name="body">
              <div class="form">
-              
-              <Form
-              @submit="handleSubmit"
-              :validation-schema="schema"
-              :initial-values="initialValues"
-              >
+              <Form @submit="handleSubmit" :validation-schema="schema" :initial-values="initialValues">
+                  <Field type="hidden" name="id" class="form-control" />
                 <div>
                   <label for="carName">Car Name : </label>                 
                   <Field id="carName" name="carName" type="text" class="form-control" placeholder="Enter car name" />
@@ -42,44 +20,24 @@
                             
                 <div>
                   <label for="carDetails">Car Details : </label>                 
-                  <Field
-                  id="carDetails"
-                  name="carDetails"
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter car details"
-                  />
+                  <Field id="carDetails" name="carDetails" type="text" class="form-control" placeholder="Enter car details"/>
                   <ErrorMessage name="carDetails" class="text-danger" />                 
                 </div>
       
                 <div>
                   <label for="carImage">Car Image : </label>                
-                  <Field
-                  id="carImage"
-                  name="carImage"
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter car image URL"
-                  />
+                  <Field id="carImage" name="carImage" type="text" class="form-control" placeholder="Enter car image URL"/>
                   <ErrorMessage name="carImage" class="text-danger" />                
                 </div>
                
                 <div>
                   <label for="carPrice">Car Price : </label>                  
-                  <Field
-                  id="carPrice"
-                  name="carPrice"
-                  type="number"
-                  class="form-control"
-                  placeholder="Enter car price"
-                  />
+                  <Field id="carPrice" name="carPrice" type="number" class="form-control" placeholder="Enter car price"/>
                   <ErrorMessage name="carPrice" class="text-danger" />
                 </div>
-              
                 <br />
-
                 <div class="add-car">
-                  <button class="submit add-button" type="submit">ADD CAR</button>
+                  <button class="submit add-button" type="submit">ADD DETAILS</button>
                 </div>              
               </Form>
             </div>
@@ -123,16 +81,17 @@ export default {
   },
   props: {
     addCar: Function,
+    showModel: Boolean,
+    handleModel: Function,
     initialValues: Object,
+    handleFormHeading: Function,
+    formHeading: String,
   },
   methods: {
     handleSubmit(values, formActions) {
     this.addCar(values);
     formActions.resetForm();
-    this.$emit('checkAddCarModalFlag',false);
-    },
-    close() {
-      this.$emit('close');
+    this.handleModel(false);
     },
   },
 };
@@ -149,7 +108,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .modal {
@@ -271,8 +229,8 @@ textarea {
   justify-content: center;
   align-items: center;
 }
+
 .submit {
   text-align: center;
 }
-
 </style>
