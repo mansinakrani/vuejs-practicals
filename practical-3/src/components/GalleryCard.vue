@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div>
       <div class="edit-delete-btn">
-          <p type="button" class="btn-edit" @click="showModal" ><i class="fa fa-pencil" @click="editCarDetails(id)" ></i></p>
+          <p type="button" class="btn-edit" @click="editCarDetails(id), handleFormHeading('Edit Car Details')" ><i class="fa fa-pencil"></i></p>
           <p type="button" class="btn-delete" @click="dataDelete(carName)">x</p>  
         </div>
       <div class="carName">{{ carName }}</div>
@@ -12,37 +11,25 @@
         <span v-if="carPrice">Info</span>
         <span v-else>Available soon...</span>
       </button>
-    </div>
-      <div class="edit-form">
-        <EditModalView v-show="isModalVisible"
-          @close="closeModal" 
-          @checkEditCarModalFlag="getshowModal"
-          :initialValues="initialValues"
-        />      
-  </div>
   </div>
 </template>
 
 <script>
-import EditModalView from "./EditModalView.vue";
-import jsonData from "./jsonData.json";
 export default {
   name: 'GalleryCard',
-  components: {
-    EditModalView
-  },
   props: {
     id: String,
     carName: String,
     carImage: String,
     carDetails: String,
     carPrice: Number,
+    editCarDetails: Function,
+    handleFormHeading: Function,
   },
-  data() {
-    return {
-      carData: jsonData,
-      isModalVisible: false,
-    };
+  computed: {
+    isPrice() {
+      return (this.carPrice === undefined)
+    },
   },
   methods: {
     dataDelete(carName) {
@@ -50,28 +37,6 @@ export default {
     },
     clickInfo() {
       alert(`car price is ₹ ${this.carPrice}`);
-    },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {     
-      this.isModalVisible = false;
-    },
-   
-    editCarDetails(id) {     
-      const carItem = this.carData.find((carItem) => carItem.id === id);
-      this.initialValues = carItem;
-      this.isModalVisible = true;
-    },
-
-    getshowModal(values) {
-      this.isModalVisible=values;
-    }
-  },
-     
-  computed: {
-    isPrice() {
-      return (this.carPrice === undefined)
     },
   },
 };
