@@ -1,7 +1,6 @@
 <template>
-   <div>
-     <NavBar heading="Car Showroom" />
-    <button class="add-btn"  type="button" @click="handleModel(true), handleFormHeading('Add Car Details')">Add car</button>
+   <NavBar heading="Car Showroom" />
+    <button class="add-btn"  type="button" @click="handleModel(true)">Add car</button>
     <div class="d-flex justify-content-center">
       <div class="col-md-10">
         <div class="column">
@@ -12,8 +11,7 @@
                 :carDetails="carItem.carDetails"
                 :carPrice="carItem.carPrice"
                 :id="carItem.id" 
-                :editCarDetails="editCarDetails"
-                :handleFormHeading="handleFormHeading"     
+                :editCarDetails="editCarDetails"     
                 />
             </div>
         </div>
@@ -25,26 +23,21 @@
       :handleModel="handleModel"
       :initialValues="initialValues"
       :formHeading="formHeading"
-      :handleFormHeading="handleFormHeading"
     />
-   </div>
 </template>
 
 <script>
 import GalleryCard from './GalleryCard.vue';
 import jsonData from "./jsonData.json";
 import ModalView from "./ModalView.vue";
-// import NavBar from './NavBar.vue';
 
 export default {
   name: 'HomeView',
 
   components: {
     GalleryCard,
-    // NavBar,
     ModalView,
   },
-
   data() {
     return {
       showModel: false,
@@ -59,6 +52,7 @@ export default {
       carData: jsonData,
     };
   },
+
 
   methods: {
     addCar(carItem) {
@@ -87,18 +81,18 @@ export default {
     },
 
     editCarDetails(id) {
+      this.formHeading = "Edit Car Details";
       const carItem = this.carData.find((carItem) => carItem.id === id);
       this.initialValues = carItem;
       this.showModel = true;
     },
-
+    
     handleModel(status) {
       this.showModel = status;
-      this.resetInitialValues();
-    },
-
-    handleFormHeading(heading) {
-      this.formHeading = heading;
+      if (status === false) {
+        this.formHeading = "";
+        this.resetInitialValues();
+      }
     },
 
     resetInitialValues() {

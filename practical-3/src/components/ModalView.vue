@@ -1,16 +1,17 @@
 <template>
   <transition name="modal-fade">
-    <div v-show="showModel" class="modal-backdrop">
+    <div v-show="showModel" class="modal-backdrop" >
       <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
         <header class="modal-header" id="modalTitle">
-          <slot name="header">{{ formHeading }}</slot>
-          <button type="button" class="btn-close" @click="handleModel(false)" aria-label="Close modal">x</button>
+          <slot v-if="formHeading" name="header">{{ formHeading }}</slot>
+          <slot v-else>Add Car Details</slot>
+          <button type="button" class="btn-close"  @click="handleModelClose" aria-label="Close modal">x</button>
         </header>
 
         <section class="modal-body">
           <slot name="body">
              <div class="form">
-              <Form @submit="handleSubmit" :validation-schema="schema" :initial-values="initialValues">
+              <Form ref="form" @submit="handleSubmit" :validation-schema="schema" :initial-values="initialValues">
                   <Field type="hidden" name="id" class="form-control" />
                 <div>
                   <label for="carName">Car Name : </label>                 
@@ -37,7 +38,7 @@
                 </div>
                 <br />
                 <div class="add-car">
-                  <button class="submit add-button" type="submit">ADD DETAILS</button>
+                  <button class="submit add-button" type="submit">SUBMIT</button>
                 </div>              
               </Form>
             </div>
@@ -89,9 +90,14 @@ export default {
   },
   methods: {
     handleSubmit(values, formActions) {
-    this.addCar(values);
-    formActions.resetForm();
-    this.handleModel(false);
+      this.addCar(values);
+      formActions.resetForm();
+      this.handleModel(false);
+    },
+
+    handleModelClose() {
+      this.handleModel(false);
+      this.$refs.form.resetForm();
     },
   },
 };

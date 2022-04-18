@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="edit-delete-btn">
-          <p type="button" class="btn-edit" @click="editCarDetails(id), handleFormHeading('Edit Car Details')" ><i class="fa fa-pencil"></i></p>
+          <p type="button" class="btn-edit" @click="editCarDetails(id)"><i class="fa fa-pencil"></i></p>
           <p type="button" class="btn-delete" @click="dataDelete(carName)">x</p>  
         </div>
       <div class="carName">{{ carName }}</div>
@@ -24,7 +24,6 @@ export default {
     carDetails: String,
     carPrice: Number,
     editCarDetails: Function,
-    handleFormHeading: Function,
   },
   computed: {
     isPrice() {
