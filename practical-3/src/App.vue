@@ -5,10 +5,11 @@
 <script>
 import HomeView from './components/HomeView.vue';
 
+
 export default {
   name: 'App',
   components: {
-    HomeView
+    HomeView,
   },
 }
 </script>
