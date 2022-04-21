@@ -5,13 +5,8 @@
 </template>
 
 <script>
-// import axios from "axios";
 export default {
   name: 'App',
-  // components: {
-  //   GalleryCard,
-  //   EditModalView
-  // },
   data() {
     return {
       carData: [],

@@ -3,6 +3,12 @@
         <div class="form">
         <Form @submit="handleSubmit" :validation-schema="schema">
             <div class="heading">Sign Up</div>
+               <div class="form-group">
+                <label for="name">Name :</label>
+                <Field id="name" name="name" type="text" class="form-control" placeholder="Enter name" />
+                <ErrorMessage name="name" class="text-danger" />
+            </div>
+            <br />
 
             <div class="form-group">
                 <label for="email">Email address :</label>
@@ -37,9 +43,8 @@
             <br/>
             <div class="form-group">
                 <label for="gender">Gender :</label>
-                <Field id="gender" name="gender" class="form-check-input" type="radio" value="male"></Field>Male
-                <Field id="gender" name="gender" class="form-check-input" type="radio" value="female"></Field>Female
-                <Field id="gender" name="gender" class="form-check-input" type="radio" value="other"></Field>Other
+                <Field name="gender" class="form-check-input" type="radio" value="male"></Field>Male
+                <Field name="gender" class="form-check-input" type="radio" value="female"></Field>Female
                 <ErrorMessage class="text-danger" name="gender" />
             </div>
             <br />
@@ -72,7 +77,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-
+import axios from "axios";
 export default {
   name: 'RegisterForm',
   components: {
@@ -82,14 +87,15 @@ export default {
   },
    data() {
     const schema = yup.object({
+        name: yup.string().required(),
     email: yup.string().email().required("Valid E-mail is Required!*"),
-    password: yup.string().required().min(8),
+    password: yup.string().min(8).max(12).required("Password should be atleast 8 characters long, max 12 characters"),
     cnfpassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Password doesn't match")
     .required("Password required*"),
     role: yup.string().required(),
-    gender: yup.string().oneOf(["male", "female", "other"]).required(),
+    gender: yup.string().oneOf(["male", "female"]).required(),
     age: yup.number().min(1).max(100).integer().required("Age is Required!*"),
     dob: yup.date().required(),
     });
@@ -99,13 +105,18 @@ export default {
   },
    methods: {
     handleSubmit(values, formActions) {
-         console.log(values);
-    setTimeout(() => {
-        this.$router.push({ name: "LoginForm" });
-      }, 1000);
-      alert('You have successfully signed up.');
-         formActions.resetForm();
-    
+    axios
+        .post(`https://testapi.io/api/dartya/resource/users`, values)
+        .then((response) => {
+         if (response.status == 201) {
+            this.$router.push("/LoginForm");
+            alert('You have successfully signed up.');
+          }
+        })
+        .catch((err) => {
+          alert(err);
+        });
+        formActions.resetForm();
     },
   },
 }

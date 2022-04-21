@@ -1,20 +1,10 @@
 import { createApp } from 'vue'
-// import Vue from 'vue'
 import App from './App.vue';
 import NavBar from "./components/NavBar.vue";
-// import router from './router';
+
 import { createRouter, createWebHistory } from 'vue-router'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import LoginForm from './components/LoginForm.vue';
-// import RegisterForm from './components/RegisterForm.vue';
-
-// Vue.config.productionTip = false
-
-// new Vue({
-//     router,
-//     render: h => h(App)
-// }).$mount('#app')
 
 const router = createRouter({
     history: createWebHistory(),

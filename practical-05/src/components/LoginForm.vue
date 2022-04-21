@@ -49,8 +49,7 @@ data() {
     }
   },
    methods: {
-       handleSubmit(values, formActions) {
-      console.log(values);
+    handleSubmit(values, formActions) {
       this.loginSubmit(values);
       formActions.resetForm();
     },
