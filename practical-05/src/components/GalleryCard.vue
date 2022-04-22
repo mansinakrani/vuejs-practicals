@@ -5,12 +5,13 @@
           <p type="button" class="btn-delete" @click="dataDelete">x</p>  
         </div>
     <div class="carName">{{ carName }}</div>
-    <div><img :src="carImage" alt="car-image" /></div>
-    <br />
-    <button class="btn btn-info text-black" @click="carDataDisplay">
+    <div class="col-auto mb-2"><img :src="carImage" alt="car-image" /></div>
+    <div class="col-auto mb-2">
+      <button class="btn btn-info text-black" @click="carDataDisplay">
       <span>Info</span>
     </button>
-  </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -24,10 +25,6 @@ export default {
     carPrice: String,
     editCarDetails: Function,
   },
-  data() {
-    return {};
-  },
-
   methods: {
     dataDelete() {
       this.$emit("carDelete");
@@ -85,10 +82,6 @@ img {
   width: 280px;
 }
 
-.carDetails {
-  font-size: medium;
-}
-
 .btn:active,
 .btn:hover {
   outline: 0;
@@ -100,32 +93,5 @@ img {
   color: rgb(81, 77, 77)!important;
   background-color: #f9fafb!important;
   border-color: rgb(81, 77, 77)!important;
-}
- 
-@media (min-width: 768px) {
-  .btn {
-    font-size: 14px;
-    min-width: 106px;
-  }
-}
-
-@media (max-width: 300px) {
-  img {
-    height: 100px;
-    width: 150px;
-  }
-}
-
-@media (max-width: 700px) {
-  img {
-    height: 150px;
-    width: 250px;
-  }
-
-  .carName {
-    margin: 20px 0 0;
-    font-style: oblique;
-    font-size: 20px;
-  }
 }
 </style>

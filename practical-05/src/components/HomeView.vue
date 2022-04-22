@@ -1,6 +1,5 @@
 <template>
 <div>
-  <NavBar />
   <button class="add-btn"  type="button" @click="handleModel(true)">Add car</button>
   <div class="row">
     <div class="column">
@@ -63,14 +62,12 @@ export default {
         .then((res) => {
           this.carData = res.data.data;
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           alert("Something went wrong please try again");
         });
     },
   
     detailDisplay(id) {
-      console.log("inside display method");
       this.$router.push(`/car/${id}`);
     },
     deleteData(id) {
@@ -78,12 +75,10 @@ export default {
         .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
         .then((response) => {
           if (response.status === 204) {
-            console.log("delete function")
             this.fetchData();
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           alert("can't delete at this moment");
         });
     },
@@ -96,8 +91,7 @@ export default {
             this.fetchData();
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           alert("Something went wrong please try again");
         });
     },
@@ -119,8 +113,7 @@ export default {
             this.fetchData();
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           alert(`cannot update at this moment`);
         });
         this.resetInitialValues();     
@@ -182,7 +175,8 @@ export default {
   margin-top: 8px;
 }
 .add-btn:hover {
-  background: rgb(251, 251, 251);
+  background: rgb(27, 75, 92);
+  color: rgb(230, 230, 230);
 }
 
 @media screen and (max-width: 650px) {

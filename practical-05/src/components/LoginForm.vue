@@ -1,27 +1,28 @@
 <template>
-    <div class="form">
-        <Form @submit="handleSubmit" :validation-schema="schema">
+<div class="p-4">
+  <div class="card  align-items-center">
+        <Form @submit="handleSubmit" :validation-schema="schema" class="p-6 row col-sm-4">
             <div class="heading">Log In</div>
  
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="email">Email address :</label>
                 <Field id="email" name="email" type="email" class="form-control" placeholder="Enter E-mail" />
                 <ErrorMessage name="email" class="text-danger" />
             </div>
- 
-            <br />
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="password">Password :</label>
                 <Field id="password" name="password" type="password" class="form-control" placeholder="Enter Password" />
                 <ErrorMessage name="password" class="text-danger" />
             </div>
- 
-            <br />
 
-            <button type="submit" class="btn btn-success">Log In</button>
+             <div class="col-auto">
+                <button type="submit" class="btn btn-success">Log In</button>
+            </div>
+            
         </Form>
     </div>
+</div>
 </template>
  
 <script>
@@ -61,8 +62,7 @@ data() {
             alert('Logged In Successfully!!');
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           alert(`can't login at this moment`);
         });  
     },

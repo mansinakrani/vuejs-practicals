@@ -1,16 +1,16 @@
 <template>
   <div class="nav-bar">
     <div>
-      <router-link to="/"><span><button class="home-btn"  type="button">Home</button></span></router-link>
+      <router-link to="/" class="home-btn nav-link">Home</router-link>
     </div>
     <div class="heading">
       <span>{{ heading }}</span>
     </div>
     <div>
-      <router-link to="/LoginForm"><span><button class="login-btn"  type="button">Login</button></span></router-link>
+      <router-link to="/LoginForm" class="login-btn nav-link" >Login</router-link>
     </div>
      <div>
-      <router-link to="/RegisterForm"><span><button class="register-btn"  type="button">Register</button></span></router-link>
+      <router-link to="/RegisterForm" class="register-btn nav-link">Register</router-link>
     </div>
   </div>
    
@@ -46,49 +46,39 @@ export default {
 }
 .home-btn {
   float: right;
-  padding: 13px;
   color: rgb(27, 75, 92);
-  background: rgb(149, 216, 249);
-  justify-content: center;
-  font-size: 14px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
   border-radius: 8px;
 }
 
 .home-btn:hover {
-  background: rgb(251, 251, 251);
+  color: rgb(251, 251, 251);
 }
 .login-btn {
   float: right;
-  padding: 13px;
   color: rgb(27, 75, 92);
-  background: rgb(149, 216, 249);
-  justify-content: center;
-  font-size: 14px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
-  margin-right: 4px;
   border-radius: 8px;
 }
 
 .login-btn:hover {
-  background: rgb(251, 251, 251);
+  color: rgb(251, 251, 251);
 }
 
 .register-btn {
   float: right;
-  padding: 13px;
   color: rgb(27, 75, 92);
-  background: rgb(149, 216, 249);
-  justify-content: center;
-  font-size: 14px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
   border-radius: 8px;
 }
 
 .register-btn:hover {
-  background: rgb(251, 251, 251);
+  color: rgb(251, 251, 251);
 }
 </style>

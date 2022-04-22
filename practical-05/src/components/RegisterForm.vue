@@ -1,36 +1,33 @@
 <template>
-   <div class="container">
-        <div class="form">
-        <Form @submit="handleSubmit" :validation-schema="schema">
+   <div class="p-4">
+        <div class="card  align-items-center">
+        <Form @submit="handleSubmit" :validation-schema="schema" class="p-6 row col-sm-4">
             <div class="heading">Sign Up</div>
-               <div class="form-group">
+               <div class="form-group mb-2">
                 <label for="name">Name :</label>
                 <Field id="name" name="name" type="text" class="form-control" placeholder="Enter name" />
                 <ErrorMessage name="name" class="text-danger" />
             </div>
-            <br />
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="email">Email address :</label>
                 <Field id="email" name="email" type="email" class="form-control" placeholder="Enter E-mail" />
                 <ErrorMessage name="email" class="text-danger" />
             </div>
-            <br />
  
-           <div class="form-group">
+           <div class="form-group mb-2">
                 <label for="password">Password :</label>
                 <Field id="password" name="password" type="password" class="form-control" placeholder="Enter Password" />
                 <ErrorMessage name="password" class="text-danger" />
             </div>
-            <br />
-            <div class="form-group">
+           
+            <div class="form-group mb-2">
                 <label for="cnfpassword">Confirm Password :</label>
-                <Field id="cnfpassword" name="cnfpassword" type="password" class="form-control" placeholder="Enter Password" />
+                <Field id="cnfpassword" name="cnfpassword" type="password" class="form-control" placeholder="********" />
                 <ErrorMessage name="cnfpassword" class="text-danger" />
             </div>
-            <br />
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="role">Role :</label>
                 <Field id="role" name="role" as="select" class="form-select">
                     <option value="">please select a role</option>
@@ -38,32 +35,33 @@
                     <option value="employee">Employee</option>
                     <option value="customer">Customer</option>
                 </Field>
+                <ErrorMessage class="text-danger" name="role" />
             </div>
 
-            <br/>
-            <div class="form-group">
-                <label for="gender">Gender :</label>
-                <Field name="gender" class="form-check-input" type="radio" value="male"></Field>Male
-                <Field name="gender" class="form-check-input" type="radio" value="female"></Field>Female
+            <div class="form-group mb-2">
+                <span><label for="gender">Gender : </label></span> 
+                <span><Field name="gender" class="form-check-input" type="radio" value="male"></Field>Male</span>
+                
+                <span> <Field name="gender" class="form-check-input" type="radio" value="female"></Field>Female</span>
+               
                 <ErrorMessage class="text-danger" name="gender" />
             </div>
-            <br />
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="age">Age :</label>
                 <Field id="age" name="age" type="number" class="form-control" placeholder="Enter age" />
                 <ErrorMessage class="text-danger" name="age" />
             </div>
-            <br />
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="dob">DOB :</label>
                 <Field id="dob" name="dob" type="date" class="form-control" />
                 <ErrorMessage class="text-danger" name="dob" />
             </div>
-            <br />
-
-            <button type="submit" class="btn btn-success">Sign Up</button>
+            
+            <div class="col-auto">
+                <button type="submit" class="btn btn-success">Sign Up</button>
+            </div>
  
             <p class="forgot-password text-right">
                 Already registered 
@@ -87,17 +85,17 @@ export default {
   },
    data() {
     const schema = yup.object({
-        name: yup.string().required(),
-    email: yup.string().email().required("Valid E-mail is Required!*"),
+    name: yup.string().required("Name is required*"),
+    email: yup.string().email().required("Valid e-mail is required*"),
     password: yup.string().min(8).max(12).required("Password should be atleast 8 characters long, max 12 characters"),
     cnfpassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Password doesn't match")
-    .required("Password required*"),
-    role: yup.string().required(),
+    .required("Confirm password*"),
+    role: yup.string().required("Select suitable role*"),
     gender: yup.string().oneOf(["male", "female"]).required(),
-    age: yup.number().min(1).max(100).integer().required("Age is Required!*"),
-    dob: yup.date().required(),
+    age: yup.number().min(1).max(100).integer().required("Age is required!*"),
+    dob: yup.date().required("Select valid date*"),
     });
     return {
       schema,
@@ -123,11 +121,6 @@ export default {
 </script>
 
 <style>
-.container {
-width: 50%;
-justify-content: center;
-}
-
 .heading{
 text-align: center;
 font-weight: bolder;
@@ -150,9 +143,6 @@ border-radius: 10px;
 display: flex!important;
 flex-direction: row;
 flex-wrap: nowrap;
-align-content: center;
-justify-content: center;
-align-items: center;
 }
 
 span{

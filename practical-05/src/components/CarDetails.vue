@@ -1,13 +1,13 @@
 <template>
 <div class="containerCard">
-     <router-link to="/">
-     <i class="fa fa-arrow-circle-left btn-back"></i>
+    <router-link to="/">
+      <i class="fa fa-arrow-circle-left btn-back"></i>
     </router-link>
     <div class="containerDetails">
-    <div class="carName">{{ carInfo.name }}</div>
-    <img :src="carInfo.image" alt="car-image" />
-    <div class="carDetails">{{ carInfo.details }}</div>
-    <div><b>Price:</b>{{ carInfo.price }}</div>
+      <div class="carName">{{ carInfo.name }}</div>
+      <img :src="carInfo.image" alt="car-image" />
+      <div class="carDetails">{{ carInfo.details }}</div>
+      <div><b>Price:</b>{{ carInfo.price }}</div>
     </div>
 </div>
 </template>
@@ -33,11 +33,9 @@ export default {
           `https://testapi.io/api/dartya/resource/cardata/${this.$route.params.id}}`
         )
         .then((response) => {
-          console.log("car display : ",response.data)
           this.carInfo = response.data;
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           alert("something went wrong please try after some time");
         });
     },
@@ -80,6 +78,6 @@ img {
 
 .btn-back {
   float: left;
-  margin-left: 2px;
+  margin: 6px;
 }
 </style>

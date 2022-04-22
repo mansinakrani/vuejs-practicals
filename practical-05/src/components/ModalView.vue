@@ -13,30 +13,30 @@
              <div class="form">
               <Form ref="form" @submit="handleSubmit" :validation-schema="schema" :initial-values="initialValues">
                   <Field type="hidden" name="id" class="form-control" />
-                <div>
+                <div class="form-group mb-2">
                   <label for="name">Car Name : </label>                 
                   <Field id="name" name="name" type="text" class="form-control" placeholder="Enter car name" />
                   <ErrorMessage name="name" class="text-danger" />
                 </div>
                             
-                <div>
+                <div class="form-group mb-2">
                   <label for="details">Car Details : </label>                 
                   <Field id="details" name="details" type="text" class="form-control" placeholder="Enter car details"/>
                   <ErrorMessage name="details" class="text-danger" />                 
                 </div>
       
-                <div>
+                <div class="form-group mb-2">
                   <label for="image">Car Image : </label>                
                   <Field id="image" name="image" type="text" class="form-control" placeholder="Enter car image URL"/>
                   <ErrorMessage name="image" class="text-danger" />                
                 </div>
                
-                <div>
+                <div class="form-group mb-2">
                   <label for="price">Car Price : </label>                  
                   <Field id="price" name="price" type="number" class="form-control" placeholder="Enter car price"/>
                   <ErrorMessage name="price" class="text-danger" />
                 </div>
-                <br />
+               
                 <div class="add-car">
                   <button class="submit add-button" type="submit">SUBMIT</button>
                 </div>              
