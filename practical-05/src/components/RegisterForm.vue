@@ -84,6 +84,7 @@ export default {
   ErrorMessage,
   },
    data() {
+    const dateToday = new Date();
     const schema = yup.object({
     name: yup.string().required("Name is required*"),
     email: yup.string().email().required("Valid e-mail is required*"),
@@ -95,7 +96,7 @@ export default {
     role: yup.string().required("Select suitable role*"),
     gender: yup.string().oneOf(["male", "female"]).required(),
     age: yup.number().min(1).max(100).integer().required("Age is required!*"),
-    dob: yup.date().required("Select valid date*"),
+    dob: yup.date().max(dateToday, "Future date is not allowed!").required("Date of Birth is required*"),
     });
     return {
       schema,
