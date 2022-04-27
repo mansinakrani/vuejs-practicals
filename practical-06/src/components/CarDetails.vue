@@ -1,7 +1,7 @@
 <template>
 <div class="containerCard">
     <router-link to="/">
-      <button class="back-btn" size="sm" pill variant="outline" @click="carDataDisplay">
+      <button class="back-btn" size="sm" pill variant="outline">
           <i class="fa fa-arrow-circle-left btn-back"></i>
           <span class="separator"/>
           <span class="text">Back</span>
