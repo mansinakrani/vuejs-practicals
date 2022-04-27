@@ -1,22 +1,31 @@
 <template>
 <div>
-  <button class="add-btn"  type="button" @click="handleModel(true)">Add car</button>
   <div class="row">
+     <div>
+        <button class="add-btn" size="sm" pill variant="outline-info" @click="handleModel(true)">
+          <i class="fa-solid fa-file-circle-plus"></i>
+          <span class="separator"/>
+          <span class="text">Add car</span>
+        </button>
+     </div>
     <div class="column">
-        <div v-for="carItem in carData" :key="carItem.name" class="dataContainer">
-          <GalleryCard 
-            :carImage="carItem.image"
-            :carName="carItem.name"
-            :carDetails="carItem.details"
-            :carPrice="carItem.price"
-            :carId="carItem.id"  
-            :editCarDetails="editCarDetails"
-            @carDetailDisplay="detailDisplay(carItem.id)"
-            @carDelete="deleteData(carItem.id)"
-            />
-        </div>
+      <TransitionGroup name="list" tag="">
+      <div v-for="carItem in carData" :key="carItem.name" class="dataContainer">
+        <GalleryCard 
+          :carImage="carItem.image"
+          :carName="carItem.name"
+          :carDetails="carItem.details"
+          :carPrice="carItem.price"
+          :carId="carItem.id"  
+          :editCarDetails="editCarDetails"
+          @carDetailDisplay="detailDisplay(carItem.id)"
+          @carDelete="deleteData(carItem.id)"
+          />
+      </div>
+      </TransitionGroup>
     </div>
   </div>
+  
   <ModalView
       :addCar="addCar"
       :showModel="showModel"
@@ -197,6 +206,49 @@ export default {
  margin: 25px;
  width: 400px;
  box-shadow: rgba(112, 112, 220, 0.1) 0px 8px 24px, rgba(223, 28, 28, 0.1) 0px 16px 56px, #f265651a 0px 24px 80px;
+ overflow: hidden;
+ position: relative;
 }
 
+button .text {
+  max-width: 0;
+  transition: max-width 0.5s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+button:hover .text {
+  max-width: 7rem;
+  transition-delay: 0.1s;
+}
+
+button .separator {
+  display: inline-block;
+  width: 0;
+  transition: width 0.1s;
+  transition-delay: 0.5s;
+}
+
+button:hover .separator {
+  width: 0.3em;
+  transition-delay: unset;
+}
+
+.list-move, 
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.list-leave-active {
+  position: absolute;
+}
 </style>

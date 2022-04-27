@@ -37,8 +37,12 @@
                   <ErrorMessage name="price" class="text-danger" />
                 </div>
                
-                <div class="add-car">
-                  <button class="submit add-button" type="submit">SUBMIT</button>
+                <div class="add-car">                  
+                  <button class="submit submit-btn" type="submit" size="sm" pill variant="outline" @click="carDataDisplay">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span class="separator"/>
+                    <span class="text">Submit</span>
+                  </button>
                 </div>              
               </Form>
             </div>
@@ -78,6 +82,7 @@ export default {
     });
     return {
       schema,
+      show: true,
     }
   },
   props: {
@@ -169,14 +174,19 @@ export default {
   border-radius: 2px;
 }
 
-.modal-fade-enter,
+.modal-fade-enter-from,
 .modal-fade-leave-to {
-  opacity: 0;
+transform: translateY(-200px);
+}
+
+.modal-fade-enter-to,
+.modal-fade-leave-from {
+transform: translateY(0px);
 }
 
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: opacity .5s ease;
+transition: transform 0.3s;
 }
 
 .uploading-image{
@@ -217,19 +227,6 @@ textarea {
   color: #555;
 }
 
-.add-button {
-  background: #0d6f73;
-  border: 0;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.add-button:hover {
-  background: #52a2a5;
-}
-
 .add-car {
   display: flex;
   justify-content: center;
@@ -238,5 +235,47 @@ textarea {
 
 .submit {
   text-align: center;
+}
+
+.submit-btn {
+  padding: 10px;
+  color: white;
+  background: #52a2a5;
+  justify-content: center;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+.submit-btn:hover {  
+  background: #0d6f73;
+  color: rgb(230, 230, 230);
+}
+
+button .text {
+  max-width: 0;
+  transition: max-width 0.5s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+button:hover .text {
+  max-width: 7rem;
+  transition-delay: 0.1s;
+}
+
+button .separator {
+  display: inline-block;
+  width: 0;
+  transition: width 0.1s;
+  transition-delay: 0.5s;
+}
+
+button:hover .separator {
+  width: 0.3em;
+  transition-delay: unset;
 }
 </style>

@@ -1,22 +1,23 @@
 <template>
-  <div>
     <div class="edit-delete-btn">
-          <p type="button" class="btn-edit" @click="editCarDetails(carId)"><i class="fa fa-pencil"></i></p>
-          <p type="button" class="btn-delete" @click="dataDelete">x</p>  
-        </div>
-    <div class="carName">{{ carName }}</div>
-    <div class="col-auto mb-2"><img :src="carImage" alt="car-image" /></div>
-    <div class="col-auto mb-2">
-      <button class="btn btn-info text-black" @click="carDataDisplay">
-      <span>Info</span>
-    </button>
+      <p type="button" class="btn-edit" @click="editCarDetails(carId)"><i class="fa fa-pencil"></i></p>
+      <p type="button" class="btn-delete" @click="dataDelete">x</p>  
     </div>
-</div>
+    <div class="carName">{{ carName }}</div>
+    <div class="col-auto mb-2 card-animation"><img :src="carImage" alt="car-image" /></div>
+    <div class="mb-2">
+      <button class="info-btn" size="sm" pill variant="outline" @click="carDataDisplay">
+          <i class="fa-solid fa-circle-info"></i>
+          <span class="separator"/>
+          <span class="text">View details</span>
+      </button>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'GalleryCard',
+  emits: ["carDetailDisplay","carDelete"],
   props: {
     carId: Number,
     carName: String,
@@ -38,6 +39,11 @@ export default {
 </script>
 
 <style>
+.card-animation:hover {
+transform: scale(0.9);
+transition: 0.3s all ease-in-out;
+}
+
 .edit-delete-btn {
   display: flex;
   justify-content: flex-end;
@@ -78,20 +84,51 @@ export default {
 }
 
 img {
-  height: 200px;
-  width: 280px;
+  width: 280px; 
+  margin: auto;
+  height: 220px;
 }
 
-.btn:active,
-.btn:hover {
-  outline: 0;
-  background-color: #f9fafb!important;
-  border-color: #87cbd9!important;
-} 
+.info-btn {
+  padding: 13px;
+  color: rgb(27, 75, 92);
+  background: rgb(149, 216, 249);
+  justify-content: center;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 8px;
+}
 
-.btn-info.disabled, .btn-info:disabled {
-  color: rgb(81, 77, 77)!important;
-  background-color: #f9fafb!important;
-  border-color: rgb(81, 77, 77)!important;
+.info-btn:hover {
+  background: rgb(27, 75, 92);
+  color: rgb(230, 230, 230);
+}
+
+button .text {
+  max-width: 0;
+  transition: max-width 0.5s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+button:hover .text {
+  max-width: 7rem;
+  transition-delay: 0.1s;
+}
+
+button .separator {
+  display: inline-block;
+  width: 0;
+  transition: width 0.1s;
+  transition-delay: 0.5s;
+}
+
+button:hover .separator {
+  width: 0.3em;
+  transition-delay: unset;
 }
 </style>

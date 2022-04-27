@@ -1,6 +1,11 @@
 <template>
- <NavBar />
-  <router-view></router-view>
+  <NavBar />
+  <router-view v-slot="{ Component }">
+    <Transition name="slide-fade">
+      <component :is="Component"></component>
+    </Transition>
+  </router-view>
+  
 </template>
 
 <script>
@@ -11,7 +16,6 @@ export default {
       carData: [],
     };
   },
-  
 }
 </script>
 
@@ -26,5 +30,19 @@ export default {
 
 body {
   margin: 0!important;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(80px);
+  opacity: 0;
+}
+
+.slide-fade-enter-active{
+  animation: all 0.5s ease-out;
 }
 </style>

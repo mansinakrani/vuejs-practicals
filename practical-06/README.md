@@ -10,15 +10,15 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Description
+Add animation when open dialog and when submit button like events.
+Add transitions when navigating to pages.
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Demo 
+# Website URLs
+Deployed on netlify platform :-
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[netlify]()
+
+## Repo Link
+[Practical - 06](https://github.com/mansinakrani/vuejs-practicals.git)
