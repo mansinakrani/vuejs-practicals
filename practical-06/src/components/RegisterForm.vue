@@ -4,9 +4,9 @@
         <Form @submit="handleSubmit" :validation-schema="schema" class="p-6 row col-sm-4">
             <div class="heading">Sign Up</div>
                <div class="form-group mb-2">
-                <label for="name">Name :</label>
-                <Field id="name" name="name" type="text" class="form-control" placeholder="Enter name" />
-                <ErrorMessage name="name" class="text-danger" />
+                <label for="username">Name :</label>
+                <Field id="username" name="username" type="text" class="form-control" placeholder="Enter name" />
+                <ErrorMessage name="username" class="text-danger" />
             </div>
 
             <div class="form-group mb-2">
@@ -86,7 +86,7 @@ export default {
    data() {
     const dateToday = new Date();
     const schema = yup.object({
-    name: yup.string().required("Name is required*"),
+    username: yup.string().required("Name is required*"),
     email: yup.string().email().required("Valid e-mail is required*"),
     password: yup.string().min(8).max(12).required("Password should be atleast 8 characters long, max 12 characters"),
     cnfpassword: yup
@@ -144,9 +144,5 @@ border-radius: 10px;
 display: flex!important;
 flex-direction: row;
 flex-wrap: nowrap;
-}
-
-span{
-    margin-right: 20px;
 }
 </style>

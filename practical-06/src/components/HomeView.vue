@@ -181,7 +181,7 @@ export default {
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  margin-top: 8px;
+  margin-top: 55px;
 }
 .add-btn:hover {
   background: rgb(27, 75, 92);

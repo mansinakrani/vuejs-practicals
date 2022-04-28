@@ -1,18 +1,20 @@
 <template>
-  <div class="nav-bar">
+  <nav class="fixed-top">
+    <div class="nav-bar">
     <div>
       <router-link to="/" class="home-btn nav-link">Home</router-link>
     </div>
-    <div class="heading">
+    <div class="nav-heading" v-if="!['LoginForm', 'RegisterForm'].includes($route.name)">
       <span>{{ heading }}</span>
     </div>
     <div>
-      <router-link to="/LoginForm" class="login-btn nav-link" >Login</router-link>
+      <router-link to="/LoginForm" class="login-btn nav-link" v-if="!['LoginForm', 'RegisterForm'].includes($route.name)">Login</router-link>
     </div>
      <div>
-      <router-link to="/RegisterForm" class="register-btn nav-link">Register</router-link>
+      <router-link to="/RegisterForm" class="register-btn nav-link" v-if="!['LoginForm', 'RegisterForm'].includes($route.name)">Register</router-link>
     </div>
   </div>
+  </nav>
    
 </template>
 
@@ -33,17 +35,17 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   background-color: rgb(72, 160, 215);
 }
 
-.heading {
+.nav-heading {
   font-size: 35px;
   width: 100%;
   height: 48px;
   color: white;
 }
+
 .home-btn {
   float: right;
   color: rgb(27, 75, 92);
@@ -56,6 +58,7 @@ export default {
 .home-btn:hover {
   color: rgb(251, 251, 251);
 }
+
 .login-btn {
   float: right;
   color: rgb(27, 75, 92);

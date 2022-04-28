@@ -77,6 +77,10 @@ font-weight: bolder;
 font-size: 30px;
 }
 
+.card {
+  margin-top: 40px;
+}
+
 form {
 display: flex;
 flex-direction: column;
