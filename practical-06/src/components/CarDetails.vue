@@ -55,6 +55,7 @@ export default {
   box-shadow: rgba(112, 112, 220, 0.1) 0px 8px 24px, rgba(223, 28, 28, 0.1) 0px 16px 56px, #f265651a 0px 24px 80px;
   overflow: hidden;
   position: relative;
+  margin-top: 55px;
 }
 
 .containerDetails {
