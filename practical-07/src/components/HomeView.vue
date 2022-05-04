@@ -49,7 +49,6 @@ export default {
   },
   data() {
     return {
-      carData: [],
       showModel: false,
       formHeading: "",
       initialValues: {
@@ -63,6 +62,12 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchData");
+  },
+
+  computed: {
+    carData() {
+      return this.$store.getters.getcarData;
+    }, 
   },
   methods: { 
   

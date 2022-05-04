@@ -28,6 +28,11 @@ export default {
       
     };
   },
+  computed: {
+    carInfo() {
+      return this.$store.getters.getcarInfo;
+    }, 
+  },
 
   methods: {
      getCarDetails(id) {

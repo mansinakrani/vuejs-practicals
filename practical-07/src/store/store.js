@@ -4,6 +4,10 @@ import axios from "axios";
 import route from "../route/route";
 
 export default createStore({
+    getters: {
+        getcarData: (state) => state.carData,
+        getcarInfo: (state) => state.carDetails,
+    },
     actions: {
         fetchData({ commit }) {
             axios
