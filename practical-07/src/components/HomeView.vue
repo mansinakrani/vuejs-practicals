@@ -38,7 +38,7 @@
 
 <script>
 import GalleryCard from './GalleryCard.vue';
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import ModalView from "./ModalView.vue";
 
 export default {
@@ -65,7 +65,9 @@ export default {
   },
 
   computed: {
-   ...mapGetters({carData:'getcarData'})
+   ...mapState({
+            carData: state => state.carData
+        }),
   },
   methods: { 
     ...mapActions({
