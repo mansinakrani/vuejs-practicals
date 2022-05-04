@@ -75,6 +75,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import { mapActions } from "vuex";
 
 export default {
   name: 'RegisterForm',
@@ -107,9 +108,10 @@ export default {
       this.registerSubmit(values);
       formActions.resetForm();
     },
-    registerSubmit(userDetails) {
-        this.$store.dispatch('registerDetails', userDetails); 
-    },
+    
+    ...mapActions({
+      registerSubmit: "registerDetails", 
+    }),
   },
 }
 </script>

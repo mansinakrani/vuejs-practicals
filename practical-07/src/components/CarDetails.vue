@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'CarDetails',
   created() {
@@ -29,15 +30,13 @@ export default {
     };
   },
   computed: {
-    carInfo() {
-      return this.$store.getters.getcarInfo;
-    }, 
+    ...mapGetters({carInfo:'getcarInfo'})
   },
 
   methods: {
-     getCarDetails(id) {
-      this.$store.dispatch('getCarInfo',id); 
-    },
+    ...mapActions({
+      getCarDetails: "getCarInfo",
+    }),
   },     
 };
 </script>
