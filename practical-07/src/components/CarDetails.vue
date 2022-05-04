@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: 'CarDetails',
   created() {
@@ -30,7 +30,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({carInfo:'getcarInfo'})
+    ...mapState({
+      carInfo: (state) => state.carDetails,
+    }),
   },
 
   methods: {
