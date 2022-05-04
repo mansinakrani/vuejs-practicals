@@ -26,7 +26,7 @@
 </template>
  
 <script>
-import axios from "axios";
+
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
@@ -54,17 +54,8 @@ data() {
       this.loginSubmit(values);
       formActions.resetForm();
     },
-    loginSubmit(user) {
-    axios.post(`https://testapi.io/api/dartya//login`,user)
-      .then((response) => {
-          if (response.status === 200) {
-            this.$router.push('/'); 
-            alert('Logged In Successfully!!');
-          }
-        })
-        .catch(() => {
-          alert(`can't login at this moment`);
-        });  
+   loginSubmit(userDetails) {
+     this.$store.dispatch('loginCredentials', userDetails); 
     },
   },
 }

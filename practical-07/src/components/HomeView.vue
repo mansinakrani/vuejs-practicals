@@ -38,7 +38,7 @@
 
 <script>
 import GalleryCard from './GalleryCard.vue';
-import axios from "axios";
+
 import ModalView from "./ModalView.vue";
 
 export default {
@@ -62,47 +62,15 @@ export default {
     };
   },
   created() {
-    this.fetchData();
+    this.$store.dispatch("fetchData");
   },
   methods: { 
-    fetchData() {
-      axios
-        .get("https://testapi.io/api/dartya/resource/cardata")
-        .then((res) => {
-          this.carData = res.data.data;
-        })
-        .catch(() => {
-          alert("Something went wrong please try again");
-        });
-    },
   
     detailDisplay(id) {
       this.$router.push(`/car/${id}`);
     },
     deleteData(id) {
-      axios
-        .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
-        .then((response) => {
-          if (response.status === 204) {
-            this.fetchData();
-          }
-        })
-        .catch(() => {
-          alert("can't delete at this moment");
-        });
-    },
-
-    sendData(data) {
-      axios
-        .post("https://testapi.io/api/dartya/resource/cardata", data)
-        .then((response) => {
-          if (response.status === 201) {
-            this.fetchData();
-          }
-        })
-        .catch(() => {
-          alert("Something went wrong please try again");
-        });
+     this.$store.dispatch('deleteCarDetails', id);
     },
     addCar(carItem) {
       if (carItem.id !== "") {
@@ -116,20 +84,12 @@ export default {
           return car;
         });
         alert("Edited data  :\n" + JSON.stringify(carItem, 2, null));
-        axios.put(`https://testapi.io/api/dartya/resource/cardata/${carItem.id}`,carItem)
-        .then((response) => {
-          if (response.status === 200) {
-            this.fetchData();
-          }
-        })
-        .catch(() => {
-          alert(`cannot update at this moment`);
-        });
+        this.$store.dispatch('editData', carItem);
         this.resetInitialValues();     
       } 
       else {
         carItem.id = new Date().getTime().toString(36);
-        this.sendData(carItem);
+        this.$store.dispatch('addData', carItem);
         alert("Created data : \n" + JSON.stringify(carItem, 2, null));
       }
     },

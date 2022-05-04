@@ -17,31 +17,21 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: 'CarDetails',
   created() {
-    this.getCarDetails(this.carId);
+    this.getCarDetails(this.$route.params.id);
   },
 
   data() {
     return {
-      carInfo: {}
+      
     };
   },
 
   methods: {
-    getCarDetails() {
-      axios
-        .get(
-          `https://testapi.io/api/dartya/resource/cardata/${this.$route.params.id}}`
-        )
-        .then((response) => {
-          this.carInfo = response.data;
-        })
-        .catch(() => {
-          alert("something went wrong please try after some time");
-        });
+     getCarDetails(id) {
+      this.$store.dispatch('getCarInfo',id); 
     },
   },     
 };
