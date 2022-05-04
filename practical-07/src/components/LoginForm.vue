@@ -29,6 +29,8 @@
 
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+
+import { mapActions } from "vuex";
 export default {
   name: 'LoginForm',
   components: {
@@ -54,10 +56,10 @@ data() {
       this.loginSubmit(values);
       formActions.resetForm();
     },
-   loginSubmit(userDetails) {
-     this.$store.dispatch('loginCredentials', userDetails); 
+    ...mapActions({
+        loginSubmit: "loginCredentials", 
+      }),
     },
-  },
 }
 </script>
 

@@ -19,7 +19,7 @@
           :carId="carItem.id"  
           :editCarDetails="editCarDetails"
           @carDetailDisplay="detailDisplay(carItem.id)"
-          @carDelete="deleteData(carItem.id)"
+          @carDelete="deleteCarData(carItem.id)"
           />
       </div>
       </TransitionGroup>
@@ -38,7 +38,7 @@
 
 <script>
 import GalleryCard from './GalleryCard.vue';
-
+import { mapGetters, mapActions } from "vuex";
 import ModalView from "./ModalView.vue";
 
 export default {
@@ -61,21 +61,25 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("fetchData");
+    this.fetchCarData();
   },
 
   computed: {
-    carData() {
-      return this.$store.getters.getcarData;
-    }, 
+   ...mapGetters({carData:'getcarData'})
   },
   methods: { 
+    ...mapActions({
+      fetchCarData: "fetchData",
+      putData: "editData",
+      sendData: "addData",
+      deleteData: "deleteCarDetails",
+    }),
   
     detailDisplay(id) {
       this.$router.push(`/car/${id}`);
     },
     deleteData(id) {
-     this.$store.dispatch('deleteCarDetails', id);
+     this.deleteData(id);
     },
     addCar(carItem) {
       if (carItem.id !== "") {
@@ -89,12 +93,12 @@ export default {
           return car;
         });
         alert("Edited data  :\n" + JSON.stringify(carItem, 2, null));
-        this.$store.dispatch('editData', carItem);
+        this.putData(carItem);
         this.resetInitialValues();     
       } 
       else {
         carItem.id = new Date().getTime().toString(36);
-        this.$store.dispatch('addData', carItem);
+        this.sendData(carItem);
         alert("Created data : \n" + JSON.stringify(carItem, 2, null));
       }
     },
