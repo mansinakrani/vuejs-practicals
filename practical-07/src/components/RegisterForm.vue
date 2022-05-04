@@ -75,7 +75,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import axios from "axios";
+
 export default {
   name: 'RegisterForm',
   components: {
@@ -103,19 +103,12 @@ export default {
     }
   },
    methods: {
-    handleSubmit(values, formActions) {
-    axios
-        .post(`https://testapi.io/api/dartya/resource/users`, values)
-        .then((response) => {
-         if (response.status == 201) {
-            this.$router.push("/LoginForm");
-            alert('You have successfully signed up.');
-          }
-        })
-        .catch((err) => {
-          alert(err);
-        });
-        formActions.resetForm();
+      handleSubmit(values, formActions) {
+      this.registerSubmit(values);
+      formActions.resetForm();
+    },
+    registerSubmit(userDetails) {
+        this.$store.dispatch('registerDetails', userDetails); 
     },
   },
 }
