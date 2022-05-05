@@ -105,7 +105,16 @@ export default {
   },
    methods: {
       handleSubmit(values, formActions) {
-      this.registerSubmit(values);
+        let registerData = {
+            name: values.username,
+            email: values.email,
+            password: values.password,
+            role: values.role,
+            gender: values.gender,
+            age: values.age,
+            dob: values.dob
+        }
+      this.registerSubmit(registerData);
       formActions.resetForm();
     },
     
