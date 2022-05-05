@@ -82,8 +82,17 @@ export default {
     },
 
     registerDetails({ commit }, userData) {
-        commit("SAVE_USER_DATA", userData);
-        route.push("/LoginForm");
-        alert("You have successfully signed up.");
+        axios
+            .post(`https://testapi.io/api/dartya/resource/users`, userData)
+            .then((response) => {
+                if (response.status == 201) {
+                    commit("SAVE_USER_DATA", userData);
+                    route.push("/LoginForm");
+                    alert("You have successfully signed up.");
+                }
+            })
+            .catch((err) => {
+                alert(err);
+            });
     },
 };
