@@ -1,24 +1,24 @@
-# practical-08
+# practical-08 Authentication (Using Firebase Auth REST API)
 
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
+## Demo
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# Website URLs
 
-### Lints and fixes files
-```
-npm run lint
-```
+Deployed on netlify platform :-
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[netlify](https://vuejs-pr-08.netlify.app/)
+
+## Repo Link
+
+[Practical - 08](https://github.com/mansinakrani/vuejs-practicals.git)
