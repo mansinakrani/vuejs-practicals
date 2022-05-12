@@ -2,13 +2,13 @@
 <div>
   <div class="row">
      <div>
-        <button class="add-btn" size="sm" pill variant="outline-info" @click="handleModel(true)" v-if="isAuthenticated">
+        <button class="add-btn" size="sm" pill variant="outline-info" @click="handleModel(true)">
           <i class="fa-solid fa-file-circle-plus"></i>
           <span class="separator"/>
           <span class="text">Add car</span>
         </button>
      </div>
-    <div class="column demo">
+    <div class="column">
       <TransitionGroup name="list" tag="">
       <div v-for="carItem in carData" :key="carItem.id" class="dataContainer">
         <GalleryCard 
@@ -40,6 +40,7 @@
 import GalleryCard from './GalleryCard.vue';
 
 import ModalView from "./ModalView.vue";
+
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -63,8 +64,7 @@ export default {
   },
  computed: {
     ...mapGetters({carData:'getcarData'}),
-    ...mapGetters({token:'getAuthToken'}),
-     ...mapGetters({isAuthenticated:'isUserAuthenticated'})
+    ...mapGetters({token:'getAuthToken'})
   },
 
    created() {
@@ -137,10 +137,6 @@ export default {
 </script>
 
 <style>
-.demo{
-      margin-top: 30px;
-}
-
 .column {
   display: flex;
   flex-direction: row;

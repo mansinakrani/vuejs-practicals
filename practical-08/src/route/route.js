@@ -1,13 +1,20 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import store from '../store/store';
+import { createRouter, createWebHistory } from "vue-router";
+import store from "../store/store";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [{
-            path: "/",
+            path: "/HomeView",
             name: "HomeView",
             component: () =>
                 import ("../components/HomeView.vue"),
+            meta: { auth: true },
+        },
+        {
+            path: "/",
+            name: "IndexView",
+            component: () =>
+                import ("../components/IndexView.vue"),
         },
         {
             path: "/LoginForm",
@@ -45,7 +52,7 @@ router.beforeEach((to, from, next) => {
         !to.meta.auth &&
         store.getters[`isUserAuthenticated`]
     ) {
-        next("/");
+        next("/HomeView");
     } else {
         next();
     }

@@ -1,8 +1,11 @@
 <template>
   <nav class="fixed-top">
     <div class="nav-bar" id="nav">
+      <div>
+      <router-link to="/" class="home-btn nav-link" v-if="!isAuthenticated">View</router-link>
+    </div>
     <div>
-      <router-link to="/" class="home-btn nav-link">Home</router-link>
+      <router-link to="/HomeView" class="home-btn nav-link" v-if="isAuthenticated">Home</router-link>
     </div>
     <div class="nav-heading" v-if="!['LoginForm', 'RegisterForm'].includes($route.name)">
       <span>{{ heading }}</span>
@@ -36,13 +39,14 @@ export default {
   },
 
   methods: {
-    ...mapActions({
+     ...mapActions({
       logout: "logOut",
     }),
-    onLogout() {
+     onLogout() {
             this.logout();
             this.$router.replace('/');
-    }, 
+        },
+     
   }
 };
 </script>

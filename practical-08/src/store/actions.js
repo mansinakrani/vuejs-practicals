@@ -1,7 +1,7 @@
 import axios from "axios";
 import route from "../route/route";
 
-let timer = '';
+let timer = "";
 
 export default {
     fetchData({ commit }) {
@@ -74,9 +74,8 @@ export default {
                 user
             )
             .then((response) => {
-                let res_token = response.data.token;
-                axios.defaults.headers.common["Authorization"] =
-                    "Bearer " + res_token;
+                let res_token = response.data.idToken;
+                axios.defaults.headers.post["Authorization"] = res_token;
                 if (response.status === 200) {
                     let expirationTime = +response.data.expiresIn * 1000;
 
@@ -93,7 +92,7 @@ export default {
                     };
                     localStorage.setItem("userData", JSON.stringify(tokenData));
                     context.commit("SAVE_USER_DATA", tokenData);
-                    route.push("/");
+                    route.push("/HomeView");
                     alert("Logged In Successfully!!");
                 }
             })
@@ -106,28 +105,21 @@ export default {
         let userDataString = localStorage.getItem("userData");
         if (userDataString) {
             let userData = JSON.parse(userDataString);
-            // let expirationTime = userData.expiresIn - new Date().getTime();
+            let dateTime = new Date().getTime();
+            let expirationTime = dateTime - userData.expiresIn;
 
-            // if (expirationTime < 100) {
-            //     context.dispatch("autoLogOut");
-            // } else {
-            //     timer = setTimeout(() => {
-            //         context.dispatch("autoLogOut");
-            //     }, expirationTime);
-            // }
-
+            if (expirationTime < 100000000) {
+                context.dispatch("autoLogOut");
+            }
             context.commit("SAVE_USER_DATA", userData);
         }
     },
 
     registerDetails(context, userData) {
-        const headers = {
-            "Content-Type": "application/json",
-        };
         axios
             .post(
                 `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBvvqgFiv55CJxNo4e5W0N0WceMKf1PEcA`,
-                userData, { headers }
+                userData
             )
             .then((response) => {
                 if (response.status == 200) {

@@ -1,6 +1,6 @@
 <template>
 <div class="containerCard">
-    <router-link to="/">
+    <router-link to="/HomeView">
       <button class="back-btn" size="sm" pill variant="outline">
           <i class="fa fa-arrow-circle-left btn-back"></i>
           <span class="separator"/>
