@@ -1,6 +1,8 @@
 import axios from "axios";
 import route from "../route/route";
 
+let timer = '';
+
 export default {
     fetchData({ commit }) {
         axios
@@ -10,7 +12,6 @@ export default {
             })
             .catch((error) => {
                 alert(error);
-                console.log(error);
             });
     },
 
@@ -66,33 +67,113 @@ export default {
             });
     },
 
-    loginCredentials(user) {
+    loginCredentials(context, user) {
         axios
-            .post(`https://testapi.io/api/dartya//login`, user)
+            .post(
+                `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBvvqgFiv55CJxNo4e5W0N0WceMKf1PEcA`,
+                user
+            )
             .then((response) => {
+                let res_token = response.data.token;
+                axios.defaults.headers.common["Authorization"] =
+                    "Bearer " + res_token;
                 if (response.status === 200) {
-                    console.log(response);
+                    let expirationTime = +response.data.expiresIn * 1000;
+
+                    timer = setTimeout(() => {
+                        context.dispatch("autoLogOut");
+                    }, expirationTime);
+
+                    let tokenData = {
+                        email: response.data.email,
+                        token: response.data.idToken,
+                        expiresIn: expirationTime,
+                        refreshToken: response.data.refreshToken,
+                        userId: response.data.localId,
+                    };
+                    localStorage.setItem("userData", JSON.stringify(tokenData));
+                    context.commit("SAVE_USER_DATA", tokenData);
                     route.push("/");
                     alert("Logged In Successfully!!");
                 }
             })
-            .catch(() => {
-                alert(`can't login at this moment`);
+            .catch((err) => {
+                alert(err.response.data.error.errors[0].message);
             });
     },
 
-    registerDetails({ commit }, userData) {
+    autoLogin(context) {
+        let userDataString = localStorage.getItem("userData");
+        if (userDataString) {
+            let userData = JSON.parse(userDataString);
+            // let expirationTime = userData.expiresIn - new Date().getTime();
+
+            // if (expirationTime < 100) {
+            //     context.dispatch("autoLogOut");
+            // } else {
+            //     timer = setTimeout(() => {
+            //         context.dispatch("autoLogOut");
+            //     }, expirationTime);
+            // }
+
+            context.commit("SAVE_USER_DATA", userData);
+        }
+    },
+
+    registerDetails(context, userData) {
+        const headers = {
+            "Content-Type": "application/json",
+        };
         axios
-            .post(`https://testapi.io/api/dartya/resource/users`, userData)
+            .post(
+                `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBvvqgFiv55CJxNo4e5W0N0WceMKf1PEcA`,
+                userData, { headers }
+            )
             .then((response) => {
-                if (response.status == 201) {
-                    commit("SAVE_USER_DATA", userData);
+                if (response.status == 200) {
+                    let expirationTime = +response.data.expiresIn * 1000;
+
+                    timer = setTimeout(() => {
+                        context.dispatch("autoLogOut");
+                    }, expirationTime);
+
+                    let tokenData = {
+                        email: response.data.email,
+                        token: response.data.idToken,
+                        expiresIn: expirationTime,
+                        refreshToken: response.data.refreshToken,
+                        userId: response.data.localId,
+                    };
+                    localStorage.setItem("userData", JSON.stringify(tokenData));
+                    context.commit("SAVE_USER_DATA", tokenData);
                     route.push("/LoginForm");
                     alert("You have successfully signed up.");
                 }
             })
             .catch((err) => {
-                alert(err);
+                alert(err.response.data.error.errors[0].message);
             });
+    },
+
+    logOut({ commit }) {
+        let tokenData = {
+            email: null,
+            token: null,
+            expiresIn: null,
+            refreshToken: null,
+            userId: null,
+        };
+        commit("SAVE_USER_DATA", tokenData);
+        localStorage.removeItem("userData");
+        route.push("/");
+        alert("Logged Out Successfully!!");
+        if (timer) {
+            clearTimeout(timer);
+        }
+    },
+
+    autoLogOut(context) {
+        context.dispatch("logOut");
+        context.commit("SET_AUTO_LOGOUT");
     },
 };

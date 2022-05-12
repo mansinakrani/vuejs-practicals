@@ -1,6 +1,6 @@
 <template>
   <nav class="fixed-top">
-    <div class="nav-bar">
+    <div class="nav-bar" id="nav">
     <div>
       <router-link to="/" class="home-btn nav-link">Home</router-link>
     </div>
@@ -8,10 +8,13 @@
       <span>{{ heading }}</span>
     </div>
     <div>
-      <router-link to="/LoginForm" class="login-btn nav-link" v-if="!['LoginForm', 'RegisterForm'].includes($route.name)">Login</router-link>
+      <router-link to="/LoginForm" class="login-btn nav-link" v-if="!isAuthenticated">Login</router-link>
     </div>
-     <div>
-      <router-link to="/RegisterForm" class="register-btn nav-link" v-if="!['LoginForm', 'RegisterForm'].includes($route.name)">Register</router-link>
+    <div>
+      <router-link to="/RegisterForm" class="register-btn nav-link" v-if="!isAuthenticated">Register</router-link>
+    </div>
+    <div>
+      <a href="#" class="logout-btn nav-link" v-if="isAuthenticated" @click.prevent="onLogout()">Logout</a>
     </div>
   </div>
   </nav>
@@ -19,13 +22,27 @@
 </template>
 
 <script>
-
+import { mapGetters, mapActions} from "vuex";
 export default {
   name: "NavBar",
   data() {
     return {
      heading:'Car Showroom',
     };
+  },
+  
+ computed: {
+    ...mapGetters({isAuthenticated:'isUserAuthenticated'})
+  },
+
+  methods: {
+    ...mapActions({
+      logout: "logOut",
+    }),
+    onLogout() {
+            this.logout();
+            this.$router.replace('/');
+    }, 
   }
 };
 </script>
@@ -59,6 +76,10 @@ export default {
   color: rgb(251, 251, 251);
 }
 
+#nav a.router-link-exact-active {
+  color: #ffffff;
+}
+
 .login-btn {
   float: right;
   color: rgb(27, 75, 92);
@@ -69,6 +90,19 @@ export default {
 }
 
 .login-btn:hover {
+  color: rgb(251, 251, 251);
+}
+
+.logout-btn {
+  float: right;
+  color: rgb(27, 75, 92);
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.logout-btn:hover {
   color: rgb(251, 251, 251);
 }
 

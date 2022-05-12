@@ -26,10 +26,8 @@
 </template>
  
 <script>
-
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-
 import { mapActions } from "vuex";
 export default {
   name: 'LoginForm',
@@ -53,13 +51,19 @@ data() {
   },
    methods: {
     handleSubmit(values, formActions) {
-      this.loginSubmit(values);
+      let loginData = {
+            email: values.email,
+            password: values.password,
+            returnSecureToken: true
+        }
+      this.loginSubmit(loginData);
       formActions.resetForm();
     },
+
     ...mapActions({
-        loginSubmit: "loginCredentials", 
-      }),
-    },
+      loginSubmit: "loginCredentials", 
+    }),
+  },
 }
 </script>
 

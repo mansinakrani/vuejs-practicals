@@ -1,12 +1,12 @@
 <template>
-    <div class="edit-delete-btn">
-      <p type="button" class="btn-edit" @click="editCarDetails(carId)"><i class="fa fa-pencil"></i></p>
-      <p type="button" class="btn-delete" @click="dataDelete">x</p>  
+    <div class="edit-delete-btn" >
+      <p type="button" class="btn-edit" @click="editCarDetails(carId)" v-if="isAuthenticated"><i class="fa fa-pencil"></i></p>
+      <p type="button" class="btn-delete" @click="dataDelete" v-if="isAuthenticated">x</p>  
     </div>
     <div class="carName">{{ carName }}</div>
     <div class="col-auto mb-2 card-animation"><img :src="carImage" alt="car-image" /></div>
     <div class="mb-2">
-      <button class="info-btn" size="sm" pill variant="outline" @click="carDataDisplay">
+      <button class="info-btn" size="sm" pill variant="outline" @click="carDataDisplay" v-if="isAuthenticated">
           <i class="fa-solid fa-circle-info"></i>
           <span class="separator"/>
           <span class="text">View details</span>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapGetters} from "vuex";
 export default {
   name: 'GalleryCard',
   emits: ["carDetailDisplay","carDelete"],
@@ -25,6 +26,9 @@ export default {
     carDetails: String,
     carPrice: String,
     editCarDetails: Function,
+  },
+  computed: {
+    ...mapGetters({isAuthenticated:'isUserAuthenticated'})
   },
   methods: {
     dataDelete() {
@@ -81,6 +85,7 @@ transition: 0.3s all ease-in-out;
   font-style: oblique;
   font-size: 20px;
   text-shadow: 5px 5px 5px rgb(103, 126, 128);
+  margin-top: 40px;
 }
 
 img {

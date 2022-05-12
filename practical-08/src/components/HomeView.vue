@@ -2,15 +2,15 @@
 <div>
   <div class="row">
      <div>
-        <button class="add-btn" size="sm" pill variant="outline-info" @click="handleModel(true)">
+        <button class="add-btn" size="sm" pill variant="outline-info" @click="handleModel(true)" v-if="isAuthenticated">
           <i class="fa-solid fa-file-circle-plus"></i>
           <span class="separator"/>
           <span class="text">Add car</span>
         </button>
      </div>
-    <div class="column">
+    <div class="column demo">
       <TransitionGroup name="list" tag="">
-      <div v-for="carItem in carData" :key="carItem.name" class="dataContainer">
+      <div v-for="carItem in carData" :key="carItem.id" class="dataContainer">
         <GalleryCard 
           :carImage="carItem.image"
           :carName="carItem.name"
@@ -38,8 +38,9 @@
 
 <script>
 import GalleryCard from './GalleryCard.vue';
-import { mapGetters, mapActions } from "vuex";
+
 import ModalView from "./ModalView.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: 'HomeView',
@@ -60,27 +61,31 @@ export default {
       },
     };
   },
-  created() {
-    this.fetchCarData();
+ computed: {
+    ...mapGetters({carData:'getcarData'}),
+    ...mapGetters({token:'getAuthToken'}),
+     ...mapGetters({isAuthenticated:'isUserAuthenticated'})
   },
 
-  computed: {
-   ...mapGetters({carData:'getcarData'})
+   created() {
+    this.fetchCarData();
   },
+  
   methods: { 
-    ...mapActions({
+...mapActions({
       fetchCarData: "fetchData",
       putData: "editData",
       sendData: "addData",
       deleteData: "deleteCarDetails",
     }),
-  
+
     detailDisplay(id) {
       this.$router.push(`/car/${id}`);
     },
-    deleteData(id) {
-     this.deleteData(id);
+    deleteCarData(id) {
+      this.deleteData(id);
     },
+
     addCar(carItem) {
       if (carItem.id !== "") {
         this.carData = this.carData.map((car) => {
@@ -132,6 +137,10 @@ export default {
 </script>
 
 <style>
+.demo{
+      margin-top: 30px;
+}
+
 .column {
   display: flex;
   flex-direction: row;

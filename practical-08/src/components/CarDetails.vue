@@ -26,18 +26,19 @@ export default {
 
   data() {
     return {
-      
+
     };
-  },
-  computed: {
-   ...mapGetters({carInfo:'getcarInfo'})
   },
 
   methods: {
     ...mapActions({
-      getCarDetails: "getCarInfo",
+      getCarDetails: "getCarInfo", //M-3
     }),
-  },     
+  },
+  
+  computed: {
+     ...mapGetters({carInfo:'getcarInfo'})
+  },
 };
 </script>
 

@@ -9,12 +9,32 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'App',
   data() {
     return {
       carData: [],
     };
+  },
+  created() {
+    this.autoLoginUser();
+  },
+  computed: {
+    ...mapGetters({autoLogout:'autoLogOutAction'}),
+  },
+
+  methods: { 
+    ...mapActions({
+      autoLoginUser: "autoLogin"
+    })
+  },
+  watch: {
+    autoLogout(curValue, oldValue) {
+        if (curValue && curValue != oldValue) {
+            this.$router.replace('/');
+        }
+    },
   },
 }
 </script>

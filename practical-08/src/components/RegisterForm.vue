@@ -75,6 +75,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+
 import { mapActions } from "vuex";
 
 export default {
@@ -104,7 +105,7 @@ export default {
     }
   },
    methods: {
-      handleSubmit(values, formActions) {
+    handleSubmit(values, formActions) {
         let registerData = {
             name: values.username,
             email: values.email,
@@ -112,7 +113,8 @@ export default {
             role: values.role,
             gender: values.gender,
             age: values.age,
-            dob: values.dob
+            dob: values.dob,
+            returnSecureToken: true
         }
       this.registerSubmit(registerData);
       formActions.resetForm();
