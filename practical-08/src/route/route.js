@@ -7,7 +7,6 @@ const router = createRouter({
             name: "HomeView",
             component: () =>
                 import ("../components/HomeView.vue"),
-            meta: { auth: true },
         },
 
         {
@@ -15,41 +14,27 @@ const router = createRouter({
             name: "LoginForm",
             component: () =>
                 import ("../components/LoginForm.vue"),
-            meta: { auth: false },
         },
         {
             path: "/RegisterForm",
             name: "RegisterForm",
             component: () =>
                 import ("../components/RegisterForm.vue"),
-            meta: { auth: false },
         },
         {
             path: "/car/:id",
             name: "CarDetails",
             component: () =>
                 import ("../components/CarDetails.vue"),
-            meta: { auth: true },
-        }
+            beforeEnter: (to, from, next) => {
+                if (localStorage.getItem("userData")) {
+                    next();
+                } else {
+                    next("/");
+                }
+            },
+        },
     ],
-});
-
-router.beforeEach((to, from, next) => {
-    if (
-        "auth" in to.meta &&
-        to.meta.auth &&
-        !localStorage.getItem("userData")
-    ) {
-        next();
-    } else if (
-        "auth" in to.meta &&
-        !to.meta.auth &&
-        localStorage.getItem("userData")
-    ) {
-        next("/LoginForm");
-    } else {
-        next();
-    }
 });
 
 export default router;
