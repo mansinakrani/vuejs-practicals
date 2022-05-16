@@ -11,5 +11,5 @@ export default {
     },
     SET_AUTO_LOGOUT(state) {
         state.userDataStore.autoLogout = true;
-    },
+    }
 };

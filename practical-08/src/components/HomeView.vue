@@ -1,13 +1,13 @@
 <template>
-<div>
+<div class="home-view">
   <div class="row">
-     <div>
-        <button class="add-btn" size="sm" pill variant="outline-info" @click="handleModel(true)">
-          <i class="fa-solid fa-file-circle-plus"></i>
-          <span class="separator"/>
-          <span class="text">Add car</span>
-        </button>
-     </div>
+    <div>
+      <button class="add-btn" size="sm" pill variant="outline-info" @click="handleModel(true)" v-if="isAuthenticated">
+        <i class="fa-solid fa-file-circle-plus"></i>
+        <span class="separator"/>
+        <span class="text">Add car</span>
+      </button>
+    </div>
     <div class="column">
       <TransitionGroup name="list" tag="">
       <div v-for="carItem in carData" :key="carItem.id" class="dataContainer">
@@ -38,9 +38,7 @@
 
 <script>
 import GalleryCard from './GalleryCard.vue';
-
 import ModalView from "./ModalView.vue";
-
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -62,26 +60,29 @@ export default {
       },
     };
   },
- computed: {
-    ...mapGetters({carData:'getcarData'}),
-    ...mapGetters({token:'getAuthToken'})
+
+  computed: {
+    ...mapGetters({ carData:'getcarData' }),
+    ...mapGetters({ token:'getAuthToken' }),
+    ...mapGetters({ isAuthenticated:'isUserAuthenticated' })
   },
 
-   created() {
+  created() {
     this.fetchCarData();
   },
   
   methods: { 
-...mapActions({
-      fetchCarData: "fetchData",
-      putData: "editData",
-      sendData: "addData",
-      deleteData: "deleteCarDetails",
+    ...mapActions({
+      fetchCarData:'fetchData',
+      putData:'editData',
+      sendData:'addData',
+      deleteData:'deleteCarDetails',
     }),
 
     detailDisplay(id) {
       this.$router.push(`/car/${id}`);
     },
+
     deleteCarData(id) {
       this.deleteData(id);
     },
@@ -131,12 +132,16 @@ export default {
         carImage: "",
         carPrice: undefined,
       };
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style>
+.home-view {
+  margin-top: 60px;
+}
+
 .column {
   display: flex;
   flex-direction: row;
@@ -155,8 +160,9 @@ export default {
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  margin-top: 55px;
+  margin-right: 5px;
 }
+
 .add-btn:hover {
   background: rgb(27, 75, 92);
   color: rgb(230, 230, 230);
@@ -174,14 +180,14 @@ export default {
   }
 }
 
-.dataContainer{
- background-color: rgb(187, 234, 235);
- border-radius: 15px;
- margin: 25px;
- width: 400px;
- box-shadow: rgba(112, 112, 220, 0.1) 0px 8px 24px, rgba(223, 28, 28, 0.1) 0px 16px 56px, #f265651a 0px 24px 80px;
- overflow: hidden;
- position: relative;
+.dataContainer {
+  background-color: rgb(187, 234, 235);
+  border-radius: 15px;
+  margin: 25px;
+  width: 400px;
+  box-shadow: rgba(112, 112, 220, 0.1) 0px 8px 24px, rgba(223, 28, 28, 0.1) 0px 16px 56px, #f265651a 0px 24px 80px;
+  overflow: hidden;
+  position: relative;
 }
 
 button .text {

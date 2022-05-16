@@ -1,21 +1,22 @@
 <template>
-    <div class="edit-delete-btn" >
-      <p type="button" class="btn-edit" @click="editCarDetails(carId)" v-if="isAuthenticated"><i class="fa fa-pencil"></i></p>
-      <p type="button" class="btn-delete" @click="dataDelete" v-if="isAuthenticated">x</p>  
-    </div>
-    <div class="carName">{{ carName }}</div>
-    <div class="col-auto mb-2 card-animation"><img :src="carImage" alt="car-image" /></div>
-    <div class="mb-2">
-      <button class="info-btn" size="sm" pill variant="outline" @click="carDataDisplay" v-if="isAuthenticated">
-          <i class="fa-solid fa-circle-info"></i>
-          <span class="separator"/>
-          <span class="text">View details</span>
-      </button>
+  <div class="edit-delete-btn" >
+    <p type="button" class="btn-edit" @click="editCarDetails(carId)" v-if="isAuthenticated"><i class="fa fa-pencil"></i></p>
+    <p type="button" class="btn-delete" @click="dataDelete" v-if="isAuthenticated">x</p>  
+  </div>
+  <div class="carName">{{ carName }}</div>
+  <div class="col-auto mb-2 card-animation"><img :src="carImage" alt="car-image" /></div>
+  <div class="mb-2">
+    <button class="info-btn" size="sm" pill variant="outline" @click="carDataDisplay" v-if="isAuthenticated">
+      <i class="fa-solid fa-circle-info"></i>
+      <span class="separator"/>
+      <span class="text">View details</span>
+    </button>
   </div>
 </template>
 
 <script>
-import { mapGetters} from "vuex";
+import { mapGetters } from "vuex";
+
 export default {
   name: 'GalleryCard',
   emits: ["carDetailDisplay","carDelete"],
@@ -27,25 +28,27 @@ export default {
     carPrice: String,
     editCarDetails: Function,
   },
+
   computed: {
-    ...mapGetters({isAuthenticated:'isUserAuthenticated'})
+    ...mapGetters({ isAuthenticated:'isUserAuthenticated' })
   },
+
   methods: {
     dataDelete() {
       this.$emit("carDelete");
     },
     
     carDataDisplay() {
-       this.$emit("carDetailDisplay");
+      this.$emit("carDetailDisplay");
     },
-  },     
+  }     
 };
 </script>
 
 <style>
 .card-animation:hover {
-transform: scale(0.9);
-transition: 0.3s all ease-in-out;
+  transform: scale(0.9);
+  transition: 0.3s all ease-in-out;
 }
 
 .edit-delete-btn {

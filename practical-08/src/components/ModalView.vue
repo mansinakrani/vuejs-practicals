@@ -56,6 +56,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+
 export default {
   name: 'ModalView',
   components: {
@@ -65,26 +66,29 @@ export default {
   },
   data() {
     const schema = yup.object({
-    id: yup.string(),
-    name: yup.string().required("Car Name is Required!*"),
-    details: yup
-      .string()
-      .required("Car Details is Required!*")
-      .min(30)
-      .max(120),
-    image: yup
-      .string()
-      .required("Car Image is Required!*")
-      .url("Car Image must be in URL Format!**"),
-    price: yup
-      .number()
-      .required("Car Price is Required!*"),
+      id: yup.string(),
+      name: yup
+        .string()
+        .required("Car Name is Required!*"),
+      details: yup
+        .string()
+        .required("Car Details is Required!*")
+        .min(30)
+        .max(120),
+      image: yup
+        .string()
+        .required("Car Image is Required!*")
+        .url("Car Image must be in URL Format!**"),
+      price: yup
+        .number()
+        .required("Car Price is Required!*"),
     });
     return {
       schema,
       show: true,
     }
   },
+
   props: {
     addCar: Function,
     showModel: Boolean,
@@ -93,6 +97,7 @@ export default {
     handleFormHeading: Function,
     formHeading: String,
   },
+
   methods: {
     handleSubmit(values, formActions) {
       this.addCar(values);
@@ -103,8 +108,8 @@ export default {
     handleModelClose() {
       this.handleModel(false);
       this.$refs.form.resetForm();
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -176,20 +181,20 @@ export default {
 
 .modal-fade-enter-from,
 .modal-fade-leave-to {
-transform: translateY(-200px);
+  transform: translateY(-200px);
 }
 
 .modal-fade-enter-to,
 .modal-fade-leave-from {
-transform: translateY(0px);
+  transform: translateY(0px);
 }
 
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-transition: transform 0.3s;
+  transition: transform 0.3s;
 }
 
-.uploading-image{
+.uploading-image {
   display:flex;
 }
   
@@ -248,6 +253,7 @@ textarea {
   border-radius: 8px;
   margin-top: 8px;
 }
+
 .submit-btn:hover {  
   background: #0d6f73;
   color: rgb(230, 230, 230);

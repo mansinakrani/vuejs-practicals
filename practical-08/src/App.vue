@@ -5,37 +5,32 @@
       <component :is="Component"></component>
     </Transition>
   </router-view>
-  
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'App',
-  data() {
-    return {
-      carData: [],
-    };
-  },
+
   created() {
     this.autoLoginUser();
   },
+
   computed: {
-    ...mapGetters({autoLogout:'autoLogOutAction'}),
+    ...mapGetters({ autoLogout:'autoLogOutAction' })
   },
 
   methods: { 
-    ...mapActions({
-      autoLoginUser: "autoLogin"
-    })
+    ...mapActions({ autoLoginUser:'autoLogin' })
   },
+
   watch: {
     autoLogout(curValue, oldValue) {
         if (curValue && curValue != oldValue) {
-            this.$router.replace('/');
+          this.$router.replace("/");
         }
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -52,7 +47,7 @@ body {
   margin: 0!important;
 }
 
-.slide-fade-enter-active{
+.slide-fade-enter-active {
   transition: all 0.5s ease-in;
 }
 .slide-fade-leave-active {
@@ -64,6 +59,4 @@ body {
   transform: translateX(80px);
   opacity: 0;
 }
-
-
 </style>

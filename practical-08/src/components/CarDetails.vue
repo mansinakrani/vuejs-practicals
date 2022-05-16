@@ -1,10 +1,10 @@
 <template>
-<div class="containerCard">
-    <router-link to="/HomeView">
+  <div class="containerCard">
+    <router-link to="/">
       <button class="back-btn" size="sm" pill variant="outline">
-          <i class="fa fa-arrow-circle-left btn-back"></i>
-          <span class="separator"/>
-          <span class="text">Back</span>
+        <i class="fa fa-arrow-circle-left btn-back"></i>
+        <span class="separator"/>
+        <span class="text">Back</span>
       </button>
     </router-link>
     <div class="containerDetails">
@@ -13,31 +13,25 @@
       <div class="carDetails">{{ carInfo.details }}</div>
       <div><b>Price:</b>{{ carInfo.price }}</div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: 'CarDetails',
+
   created() {
     this.getCarDetails(this.$route.params.id);
   },
 
-  data() {
-    return {
-
-    };
-  },
-
   methods: {
-    ...mapActions({
-      getCarDetails: "getCarInfo", //M-3
-    }),
+    ...mapActions({ getCarDetails:'getCarInfo' })
   },
   
   computed: {
-     ...mapGetters({carInfo:'getcarInfo'})
+    ...mapGetters({ carInfo:'getcarInfo' })
   },
 };
 </script>
@@ -90,6 +84,7 @@ img {
   border-radius: 8px;
   margin-top: 8px;
 }
+
 .back-btn:hover {
   background: rgb(27, 75, 92);
   color: rgb(230, 230, 230);

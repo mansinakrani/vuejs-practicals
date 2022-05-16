@@ -1,21 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
-import store from "../store/store";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [{
-            path: "/HomeView",
+            path: "/",
             name: "HomeView",
             component: () =>
                 import ("../components/HomeView.vue"),
             meta: { auth: true },
         },
-        {
-            path: "/",
-            name: "IndexView",
-            component: () =>
-                import ("../components/IndexView.vue"),
-        },
+
         {
             path: "/LoginForm",
             name: "LoginForm",
@@ -36,7 +30,7 @@ const router = createRouter({
             component: () =>
                 import ("../components/CarDetails.vue"),
             meta: { auth: true },
-        },
+        }
     ],
 });
 
@@ -44,15 +38,15 @@ router.beforeEach((to, from, next) => {
     if (
         "auth" in to.meta &&
         to.meta.auth &&
-        !store.getters[`isUserAuthenticated`]
+        !localStorage.getItem("userData")
     ) {
-        next("/");
+        next();
     } else if (
         "auth" in to.meta &&
         !to.meta.auth &&
-        store.getters[`isUserAuthenticated`]
+        localStorage.getItem("userData")
     ) {
-        next("/HomeView");
+        next("/LoginForm");
     } else {
         next();
     }

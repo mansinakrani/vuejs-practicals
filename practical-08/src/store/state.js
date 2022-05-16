@@ -8,5 +8,5 @@ export default {
         refreshToken: "",
         expiresIn: "sdsds",
         autoLogout: false,
-    },
+    }
 };

@@ -5,19 +5,42 @@ let timer = "";
 
 export default {
     fetchData({ commit }) {
-        axios
-            .get("https://testapi.io/api/dartya/resource/cardata")
-            .then((res) => {
-                commit("GET_CAR_DATA", res.data.data);
-            })
-            .catch((error) => {
-                alert(error);
-            });
+        if (localStorage.getItem("userData") !== null) {
+            let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+            const auth_token = localStorageUserData.token;
+            axios
+                .get("https://testapi.io/api/dartya/resource/cardata", {
+                    headers: {
+                        Authorization: "Basic - " + auth_token
+                    },
+                })
+                .then((res) => {
+                    commit("GET_CAR_DATA", res.data.data);
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        } else if (localStorage.getItem("userData") == null) {
+            axios
+                .get("https://testapi.io/api/dartya/resource/cardata")
+                .then((res) => {
+                    commit("GET_CAR_DATA", res.data.data);
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        }
     },
 
     deleteCarDetails({ dispatch }, id) {
+        let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+        const auth_token = localStorageUserData.token;
         axios
-            .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+            .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`, {
+                headers: {
+                    Authorization: "Basic - " + auth_token
+                },
+            })
             .then((response) => {
                 if (response.status === 204) {
                     dispatch("fetchData");
@@ -29,8 +52,14 @@ export default {
     },
 
     addData({ dispatch }, data) {
+        let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+        const auth_token = localStorageUserData.token;
         axios
-            .post("https://testapi.io/api/dartya/resource/cardata", data)
+            .post("https://testapi.io/api/dartya/resource/cardata", data, {
+                headers: {
+                    Authorization: "Basic - " + auth_token
+                },
+            })
             .then((res) => {
                 if (res.status === 201) {
                     dispatch("fetchData");
@@ -42,10 +71,16 @@ export default {
     },
 
     editData({ dispatch }, carItem) {
+        let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+        const auth_token = localStorageUserData.token;
         axios
             .put(
                 `https://testapi.io/api/dartya/resource/cardata/${carItem.id}`,
-                carItem
+                carItem, {
+                    headers: {
+                        Authorization: "Basic - " + auth_token
+                    },
+                }
             )
             .then((response) => {
                 if (response.status === 200) {
@@ -56,9 +91,16 @@ export default {
                 alert(`cannot update at this moment`);
             });
     },
+
     getCarInfo({ commit }, id) {
+        let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+        const auth_token = localStorageUserData.token;
         axios
-            .get(`https://testapi.io/api/dartya/resource/cardata/${id}}`)
+            .get(`https://testapi.io/api/dartya/resource/cardata/${id}}`, {
+                headers: {
+                    Authorization: "Basic - " + auth_token
+                },
+            })
             .then((response) => {
                 commit("FETCH_CAR_INFO", response.data);
             })
@@ -74,8 +116,6 @@ export default {
                 user
             )
             .then((response) => {
-                let res_token = response.data.idToken;
-                axios.defaults.headers.post["Authorization"] = res_token;
                 if (response.status === 200) {
                     let expirationTime = +response.data.expiresIn * 1000;
 
@@ -92,7 +132,7 @@ export default {
                     };
                     localStorage.setItem("userData", JSON.stringify(tokenData));
                     context.commit("SAVE_USER_DATA", tokenData);
-                    route.push("/HomeView");
+                    route.push("/");
                     alert("Logged In Successfully!!");
                 }
             })
@@ -115,7 +155,7 @@ export default {
         }
     },
 
-    registerDetails(context, userData) {
+    registerDetails(userData) {
         axios
             .post(
                 `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBvvqgFiv55CJxNo4e5W0N0WceMKf1PEcA`,
@@ -123,21 +163,6 @@ export default {
             )
             .then((response) => {
                 if (response.status == 200) {
-                    let expirationTime = +response.data.expiresIn * 1000;
-
-                    timer = setTimeout(() => {
-                        context.dispatch("autoLogOut");
-                    }, expirationTime);
-
-                    let tokenData = {
-                        email: response.data.email,
-                        token: response.data.idToken,
-                        expiresIn: expirationTime,
-                        refreshToken: response.data.refreshToken,
-                        userId: response.data.localId,
-                    };
-                    localStorage.setItem("userData", JSON.stringify(tokenData));
-                    context.commit("SAVE_USER_DATA", tokenData);
                     route.push("/LoginForm");
                     alert("You have successfully signed up.");
                 }
@@ -147,7 +172,7 @@ export default {
             });
     },
 
-    logOut({ commit }) {
+    logOut(context) {
         let tokenData = {
             email: null,
             token: null,
@@ -155,8 +180,10 @@ export default {
             refreshToken: null,
             userId: null,
         };
-        commit("SAVE_USER_DATA", tokenData);
+        context.commit("SAVE_USER_DATA", tokenData);
         localStorage.removeItem("userData");
+        axios.defaults.headers.common["Authorization"] = tokenData.token;
+        context.dispatch("fetchData");
         route.push("/");
         alert("Logged Out Successfully!!");
         if (timer) {
@@ -167,5 +194,5 @@ export default {
     autoLogOut(context) {
         context.dispatch("logOut");
         context.commit("SET_AUTO_LOGOUT");
-    },
+    }
 };
