@@ -1,31 +1,37 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+const LoginForm = () =>
+    import ("../components/LoginForm.vue");
+
+const RegisterForm = () =>
+    import ("../components/RegisterForm.vue");
+
+const CarDetails = () =>
+    import ("../components/CarDetails.vue");
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [{
             path: "/",
             name: "HomeView",
             component: () =>
-                import ("../components/HomeView.vue"), //import dynamically for Route-based code splitting with vue-router
+                import ("../components/HomeView.vue"),
         },
 
         {
             path: "/LoginForm",
             name: "LoginForm",
-            component: () =>
-                import ("../components/LoginForm.vue"),
+            component: LoginForm,
         },
         {
             path: "/RegisterForm",
             name: "RegisterForm",
-            component: () =>
-                import ("../components/RegisterForm.vue"),
+            component: RegisterForm,
         },
         {
             path: "/car/:id",
             name: "CarDetails",
-            component: () =>
-                import ("../components/CarDetails.vue"),
+            component: CarDetails,
             beforeEnter: (to, from, next) => {
                 if (localStorage.getItem("userData")) {
                     next();

@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <ModalView
+    <ModalView v-if="isAuthenticated"
       :addCar="addCar"
       :showModel="showModel"
       :handleModel="handleModel"
@@ -49,9 +49,12 @@
 
 <script>
 import GalleryCard from "./GalleryCard.vue";
-import ModalView from "./ModalView.vue";
 import { mapGetters, mapActions } from "vuex";
+import { defineAsyncComponent } from 'vue'
 
+const ModalView = defineAsyncComponent(() =>
+  import('./ModalView.vue')
+)
 
 export default {
   name: "HomeView",

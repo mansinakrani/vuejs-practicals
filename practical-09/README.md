@@ -1,24 +1,24 @@
 # practical-09
 
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Demo
 
-### Lints and fixes files
-```
-npm run lint
-```
+# Website URLs
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Deployed on netlify platform :-
+
+
+## Repo Link
+
+[Practical - 09](https://github.com/mansinakrani/vuejs-practicals.git)
