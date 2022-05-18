@@ -9,9 +9,9 @@ export default {
             let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
             const auth_token = localStorageUserData.token;
             axios
-                .get("https://testapi.io/api/dartya/resource/cardata", {
+                .get(`${process.env.VUE_APP_CARDATA_API}`, {
                     headers: {
-                        Authorization: "Basic - " + auth_token
+                        Authorization: "Basic - " + auth_token,
                     },
                 })
                 .then((res) => {
@@ -22,7 +22,7 @@ export default {
                 });
         } else if (localStorage.getItem("userData") == null) {
             axios
-                .get("https://testapi.io/api/dartya/resource/cardata")
+                .get(`${process.env.VUE_APP_CARDATA_API}`)
                 .then((res) => {
                     commit("GET_CAR_DATA", res.data.data);
                 })
@@ -36,9 +36,9 @@ export default {
         let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
         const auth_token = localStorageUserData.token;
         axios
-            .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`, {
+            .delete(`${process.env.VUE_APP_CARDATA_API}/${id}`, {
                 headers: {
-                    Authorization: "Basic - " + auth_token
+                    Authorization: "Basic - " + auth_token,
                 },
             })
             .then((response) => {
@@ -55,9 +55,9 @@ export default {
         let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
         const auth_token = localStorageUserData.token;
         axios
-            .post("https://testapi.io/api/dartya/resource/cardata", data, {
+            .post(`${process.env.VUE_APP_CARDATA_API}`, data, {
                 headers: {
-                    Authorization: "Basic - " + auth_token
+                    Authorization: "Basic - " + auth_token,
                 },
             })
             .then((res) => {
@@ -74,14 +74,11 @@ export default {
         let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
         const auth_token = localStorageUserData.token;
         axios
-            .put(
-                `https://testapi.io/api/dartya/resource/cardata/${carItem.id}`,
-                carItem, {
-                    headers: {
-                        Authorization: "Basic - " + auth_token
-                    },
-                }
-            )
+            .put(`${process.env.VUE_APP_CARDATA_API}/${carItem.id}`, carItem, {
+                headers: {
+                    Authorization: "Basic - " + auth_token,
+                },
+            })
             .then((response) => {
                 if (response.status === 200) {
                     dispatch("fetchData");
@@ -96,9 +93,9 @@ export default {
         let localStorageUserData = JSON.parse(localStorage.getItem("userData"));
         const auth_token = localStorageUserData.token;
         axios
-            .get(`https://testapi.io/api/dartya/resource/cardata/${id}}`, {
+            .get(`${process.env.VUE_APP_CARDATA_API}/${id}}`, {
                 headers: {
-                    Authorization: "Basic - " + auth_token
+                    Authorization: "Basic - " + auth_token,
                 },
             })
             .then((response) => {
@@ -112,7 +109,7 @@ export default {
     loginCredentials(context, user) {
         axios
             .post(
-                `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBvvqgFiv55CJxNo4e5W0N0WceMKf1PEcA`,
+                `${process.env.VUE_APP_FIREBASE_API}signInWithPassword?key=${process.env.VUE_APP_USER_FIREBASE_TOKEN}`,
                 user
             )
             .then((response) => {
@@ -158,7 +155,7 @@ export default {
     registerDetails(userData) {
         axios
             .post(
-                `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBvvqgFiv55CJxNo4e5W0N0WceMKf1PEcA`,
+                `${process.env.VUE_APP_FIREBASE_API}signUp?key=${process.env.VUE_APP_USER_FIREBASE_TOKEN}`,
                 userData
             )
             .then((response) => {
@@ -194,5 +191,5 @@ export default {
     autoLogOut(context) {
         context.dispatch("logOut");
         context.commit("SET_AUTO_LOGOUT");
-    }
+    },
 };
