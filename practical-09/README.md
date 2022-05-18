@@ -18,6 +18,9 @@ npm run serve
 
 Deployed on netlify platform :-
 
+[netlify](https://vuejs-pr-09-deploy.netlify.app/)
+
+[firebase](https://vuejs-pr-9-deploy.web.app/)
 
 ## Repo Link
 
