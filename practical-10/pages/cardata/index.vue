@@ -30,6 +30,7 @@
               :carId="carItem.id"
               :editCarDetails="editCarDetails"
               @carDetailDisplay="detailDisplay(carItem.id)"
+              @carCheckOutCart="cartDisplay(carItem.id)"
               @carDelete="deleteCarData(carItem.id)"
             />
           </div>
@@ -95,6 +96,9 @@ export default {
       this.$router.push(`/cardata/${id}`);
     },
 
+    cartDisplay(id) {
+      this.$router.push(`/cardata/checkout/${id}`);
+    },
     deleteCarData(id) {
       this.deleteData(id);
     },
@@ -155,14 +159,6 @@ export default {
   float: left;
   justify-content: center;
   flex-wrap: wrap;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  /* margin-right: -15px;
-  margin-left: -15px; */
-  flex-direction: column;
 }
 
 .add-btn {

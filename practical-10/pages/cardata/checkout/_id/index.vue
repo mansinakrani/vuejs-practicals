@@ -1,0 +1,104 @@
+<template>
+  <div class="containerCard">
+    <nuxt-link :to="`/cardata/`">
+      <button class="back-btn" size="sm" pill variant="outline">
+        <i class="fa fa-arrow-circle-left btn-back"></i>
+        <span class="separator" />
+        <span class="text">Back</span>
+      </button>
+    </nuxt-link>
+    <div class="containerDetails">
+        <img :src="carInfo.image" alt="car-image" />
+        <div class="carName">{{ carInfo.name }}</div>
+        <div><b>Price : </b>{{ carInfo.price }}</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  middleware: ['check-auth', 'auth'],
+  props: ['carInfo'],
+  head: {
+    title: 'Watch',
+  },
+}
+</script>
+
+<style scoped>
+.containerCard {
+  background-color: rgb(187, 234, 235);
+  border-radius: 15px;
+  margin: 25px;
+  box-shadow: rgba(112, 112, 220, 0.1) 0px 8px 24px,
+    rgba(223, 28, 28, 0.1) 0px 16px 56px, #f265651a 0px 24px 80px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 20px;
+}
+
+.containerDetails {
+  display: flex;
+  height: fit-content;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.carName {
+  font-variant: small-caps;
+  font-size: 24px;
+  text-shadow: 5px 5px 5px rgb(103, 126, 128);
+}
+
+img {
+  height: 200px;
+  width: 280px;
+}
+
+.back-btn {
+  float: left;
+  margin: 6px;
+  color: rgb(27, 75, 92);
+  background: rgb(149, 216, 249);
+  justify-content: center;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.back-btn:hover {
+  background: rgb(27, 75, 92);
+  color: rgb(230, 230, 230);
+}
+
+button .text {
+  max-width: 0;
+  transition: max-width 0.5s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+button:hover .text {
+  max-width: 7rem;
+  transition-delay: 0.1s;
+}
+
+button .separator {
+  display: inline-block;
+  width: 0;
+  transition: width 0.1s;
+  transition-delay: 0.5s;
+}
+
+button:hover .separator {
+  width: 0.3em;
+  transition-delay: unset;
+}
+</style>

@@ -34,6 +34,18 @@
             <span class="separator" />
             <span class="text">View details</span>
           </button>
+
+          <button
+          class="info-btn"
+          size="md"
+          pill
+          variant="outline"
+          @click="carCheckOut"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="separator" />
+            <span class="text">Checkout</span>
+          </button>
       </div>
     </div>
   </div>
@@ -43,7 +55,7 @@
 
 export default {
   name: "GalleryCard",
-  emits: ["carDetailDisplay", "carDelete"],
+  emits: ["carDetailDisplay", "carDelete", "carCheckOutCart"],
   props: {
     carId: Number,
     carName: String,
@@ -60,6 +72,10 @@ export default {
 
     carDataDisplay() {
       this.$emit("carDetailDisplay");
+    },
+
+    carCheckOut() {
+      this.$emit("carCheckOutCart");
     },
   },
 };

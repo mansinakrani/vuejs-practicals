@@ -169,8 +169,6 @@ export const actions = {
                     loginTime: new Date().getTime(),
                 }
                 localStorage.setItem('userData', JSON.stringify(tokenData))
-
-                vuexContext.commit('SAVE_USER_DATA', tokenData)
                 this.$router.push('/login')
                 alert('You have successfully signed up.')
             })
