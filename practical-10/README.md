@@ -16,6 +16,13 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+## Demo
+# Website URLs
+
+Deployed on netlify platform :-
+
+[netlify](https://vuejs-practical-10.netlify.app/)
+
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
