@@ -48,10 +48,14 @@
 
 <script>
 import GalleryCard from "./GalleryCard.vue";
-import ModalView from "./ModalView.vue";
+import { defineAsyncComponent } from 'vue'
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+
+const ModalView = defineAsyncComponent(() =>
+  import('./ModalView.vue')
+)
 
 export default {
   name: "HomeView",

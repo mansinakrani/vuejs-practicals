@@ -66,23 +66,23 @@ export default {
     const router = useRouter();
     
     onMounted(() => {
-        store.dispatch("fetchUserData");
+      store.dispatch("fetchUserData");
     });
 
     const userLists = computed(() => {
-        return store.getters.getUserList;
+      return store.getters.getUserList;
     })
 
     const addUser = () => {
-        router.push("/AddUser");
+      router.push("/AddUser");
     }
 
     const isAuthenticated = computed(() => {
-        return store.getters.isUserAuthenticated;
+      return store.getters.isUserAuthenticated;
     })
 
     function deleteUserData(id) {
-        store.dispatch("deleteUserDetails", id);
+      store.dispatch("deleteUserDetails", id);
     }
 
     const {
@@ -113,7 +113,7 @@ export default {
       lastPage,
       next,
       prev,
-      result         
+      result              
     };
   }
 };
