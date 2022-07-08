@@ -124,35 +124,34 @@ export default {
   display: none!important;
 }
 
-.userlist{
+.userlist {
   display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    background: #223f50;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  background: #223f50;
 }
 
 #animated_div {
-    width: 150px;
-    height: 38px;    
-    /* background: #223f50; */
-    color: #ffffff;
-    position: relative;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 10px;    
-    animation: animated_div 5s 1;
-    -moz-animation: animated_div 5s 1;
-    -webkit-animation: animated_div 5s 1;
-    -o-animation: animated_div 5s 1;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
+  width: 150px;
+  height: 38px;       
+  color: #ffffff;
+  position: relative;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;    
+  animation: animated_div 5s 1;
+  -moz-animation: animated_div 5s 1;
+  -webkit-animation: animated_div 5s 1;
+  -o-animation: animated_div 5s 1;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 *, *:before, *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 @keyframes animated_div {
@@ -161,30 +160,29 @@ export default {
     left: -1000px;
   }
   25% {
-      transform: rotate(20deg);
-      left: -700px;
+    transform: rotate(20deg);
+    left: -700px;
   }
   50% {
-      transform: rotate(0deg);
-      left: 600px;
+    transform: rotate(0deg);
+    left: 600px;
   }
   55% {
-      transform: rotate(0deg);
-      left: 560px;
+    transform: rotate(0deg);
+    left: 560px;
   }
   70% {
-      transform: rotate(0deg);    
-      left: 900px;
-      /* background: #1ec7e6; */
+    transform: rotate(0deg);    
+    left: 900px;     
   }
   100% {
-      transform: rotate(-360deg);
-      left: 0px;
+    transform: rotate(-360deg);
+    left: 0px;
   }
 }
 
 .userlist-top {
-    margin-top: 48px;
+  margin-top: 48px;
 }
 
 .add-btn {

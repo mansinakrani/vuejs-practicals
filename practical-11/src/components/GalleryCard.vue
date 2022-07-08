@@ -69,7 +69,7 @@ export default {
     },
     editCarDetails: {
       type: Function
-    },
+    }
   },
 
   setup(props,{ emit }) {    

@@ -28,63 +28,51 @@ const router = createRouter({
             path: "/LoginForm",
             name: "LoginForm",
             component: LoginForm,
-            beforeEnter: (to, from, next) => {
-                if (localStorage.getItem("userData") == null) {
-                    next();
-                } else {
-                    next("/");
-                }
-            },
+            beforeEnter: [accessLogin],
+
         },
         {
             path: "/RegisterForm",
             name: "RegisterForm",
             component: RegisterForm,
-            beforeEnter: (to, from, next) => {
-                if (localStorage.getItem("userData") == null) {
-                    next();
-                } else {
-                    next("/");
-                }
-            },
+            beforeEnter: [accessLogin],
         },
         {
             path: "/UserList",
             name: "UserList",
             component: UserList,
-            beforeEnter: (to, from, next) => {
-                if (localStorage.getItem("userData")) {
-                    next();
-                } else {
-                    next("/");
-                }
-            },
+            beforeEnter: [accessRoute],
+
         },
         {
             path: "/AddUser",
             name: "AddUser",
             component: AddUser,
-            beforeEnter: (to, from, next) => {
-                if (localStorage.getItem("userData")) {
-                    next();
-                } else {
-                    next("/");
-                }
-            },
+            beforeEnter: [accessRoute],
         },
         {
             path: "/car/:id",
             name: "CarDetails",
             component: CarDetails,
-            beforeEnter: (to, from, next) => {
-                if (localStorage.getItem("userData")) {
-                    next();
-                } else {
-                    next("/");
-                }
-            },
+            beforeEnter: [accessRoute],
         },
     ],
 });
 
-export default router;
+function accessRoute(to, from, next) {
+    if (localStorage.getItem("userData")) {
+        next();
+    } else {
+        next("/");
+    }
+}
+
+function accessLogin(to, from, next) {
+    if (localStorage.getItem("userData") == null) {
+        next();
+    } else {
+        next("/");
+    }
+}
+
+export default router
