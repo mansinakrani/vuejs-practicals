@@ -1,10 +1,12 @@
 <template>
+ <div>
   <NavBar />
   <router-view v-slot="{ Component }">
     <Transition name="slide-fade">
       <component :is="Component"></component>
     </Transition>
   </router-view>
+ </div>
 </template>
 
 <script>

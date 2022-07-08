@@ -199,6 +199,7 @@ export default {
       today = new Date().toISOString()
       return today.slice(0, 10)
     })
+    
     return {
       schema,
       handleSubmit,
